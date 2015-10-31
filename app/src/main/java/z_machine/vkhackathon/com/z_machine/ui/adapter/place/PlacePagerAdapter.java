@@ -25,7 +25,7 @@ public final class PlacePagerAdapter extends PagerAdapter {
         this.urls = urls;
         layoutInflater = LayoutInflater.from(context);
         imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
+//        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
     }
 
     @Override

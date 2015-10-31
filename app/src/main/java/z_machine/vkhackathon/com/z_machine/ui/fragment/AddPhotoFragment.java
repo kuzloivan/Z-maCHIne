@@ -1,6 +1,7 @@
 package z_machine.vkhackathon.com.z_machine.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -46,6 +47,7 @@ import java.util.List;
 
 import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
+import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
 public final class AddPhotoFragment extends BaseFragment {
 
@@ -62,6 +64,7 @@ public final class AddPhotoFragment extends BaseFragment {
 
     private String mCurrentPhotoPath;
     private Uri capturedImageUri;
+    private File targetFile;
 
 
     @Override
@@ -95,23 +98,34 @@ public final class AddPhotoFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_PICK_PHOTO) {
                 try {
-                    if (bitmap != null) {
-                        bitmap.recycle();
+                    if(targetFile!=null){
+                        targetFile.deleteOnExit();
                     }
-                    /*InputStream stream = getActivity().getContentResolver().openInputStream(
-                            data.getData());
-                    bitmap = BitmapFactory.decodeStream(stream);
-                    stream.close();*/
-                    bitmap= MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), data.getData());
-
-                    imageView.setImageBitmap(bitmap);
-                    sendBtn.setVisibility(View.VISIBLE);
-                    addPanelView.setVisibility(View.GONE);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    targetFile = getTargetFile(data.getData(), getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                mCurrentPhotoPath = targetFile.getPath();
+                sendPhoto();
+                ImageLoader.getInstance().displayImage("file://" + targetFile.getAbsolutePath(),imageView);
+                boolean resul = targetFile!=null?true:false;
+
+//                try {
+//                    if (bitmap != null) {
+//                        bitmap.recycle();
+//                    }
+//                    InputStream stream = getActivity().getContentResolver().openInputStream(
+//                            data.getData());
+//                    bitmap = BitmapFactory.decodeStream(stream);
+//                    stream.close();
+//                    imageView.setImageBitmap(bitmap);
+//                    sendBtn.setVisibility(View.VISIBLE);
+//                    addPanelView.setVisibility(View.GONE);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 /*File targetFile = null;
                 if (data.getData().toString().contains("content")) {
 
@@ -139,7 +153,7 @@ public final class AddPhotoFragment extends BaseFragment {
                 imageView.setImageBitmap(BitmapFactory.decodeFile(targetFile.getAbsolutePath()));*/
             } else if (requestCode == REQUEST_TAKE_PHOTO) {
                 try {
-                    bitmap= MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), capturedImageUri);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), capturedImageUri);
                     imageView.setImageBitmap(bitmap);
 
                     addPanelView.setVisibility(View.GONE);
@@ -157,7 +171,7 @@ public final class AddPhotoFragment extends BaseFragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+       // intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, REQUEST_PICK_PHOTO);
     }
 
@@ -196,7 +210,7 @@ public final class AddPhotoFragment extends BaseFragment {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp;
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES),getString(R.string.app_name));
+                Environment.DIRECTORY_PICTURES), getString(R.string.app_name));
         storageDir.mkdir();
         File image = File.createTempFile(
                 imageFileName,
@@ -207,21 +221,21 @@ public final class AddPhotoFragment extends BaseFragment {
         return image;
     }
 
-    private void search(){
+    private void search() {
         String hashtag = "&#hackathon";
-        VKRequest searchRequest = new VKRequest("photos.search",VKParameters.from("q",hashtag));
+        VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag));
         searchRequest.executeWithListener(searchPhotoRequestListener);
     }
 
-    private void sendPhoto(){
+    private void sendPhoto() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                VKRequest request = VKApi.uploadAlbumPhotoRequest(new VKUploadImage(bitmap, VKImageParameters.pngImage()), appBridge.getSharedHelper().getAlbumId(), 0);
+                VKRequest request = VKApi.uploadAlbumPhotoRequest(targetFile, appBridge.getSharedHelper().getAlbumId(), 0);
                 request.executeWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
-                        Log.d("upload",response.responseString);
+                        Log.d("upload", response.responseString);
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = response.json.getJSONArray(("response"));
@@ -238,7 +252,7 @@ public final class AddPhotoFragment extends BaseFragment {
 
                     @Override
                     public void onError(VKError error) {
-                        Log.d("upload",error.apiError.errorMessage);
+                        Log.d("upload", error.apiError.errorMessage);
                     }
                 });
             }
@@ -263,12 +277,12 @@ public final class AddPhotoFragment extends BaseFragment {
         }
     }
 
-    VKRequest.VKRequestListener uploadPhotoRequestListener = new VKRequest.VKRequestListener(){
+    VKRequest.VKRequestListener uploadPhotoRequestListener = new VKRequest.VKRequestListener() {
         @Override
         public void onComplete(VKResponse response) {
             super.onComplete(response);
             Log.d("upload", response.responseString);
-            Toast.makeText(getActivity(),"Successfully completed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Successfully completed", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -278,7 +292,7 @@ public final class AddPhotoFragment extends BaseFragment {
         }
     };
 
-    VKRequest.VKRequestListener searchPhotoRequestListener = new VKRequest.VKRequestListener(){
+    VKRequest.VKRequestListener searchPhotoRequestListener = new VKRequest.VKRequestListener() {
         @Override
         public void onComplete(VKResponse response) {
             super.onComplete(response);
@@ -289,13 +303,13 @@ public final class AddPhotoFragment extends BaseFragment {
                 jsonArray = response.json.getJSONObject("response").getJSONArray("items");
                 int length = jsonArray.length();
                 for (int i = 0; i < length; i++) {
-                    VKApiPhoto photo= new VKApiPhoto(jsonArray.getJSONObject(i));
+                    VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
                     vkApiPhotos.add(photo);
                 }
 
                 ImageLoader imageLoader = ImageLoader.getInstance();
-                imageLoader.init(ImageUtils.createImageLoaderConfiguration(getActivity()));
-                imageLoader.displayImage(vkApiPhotos.get(0).photo_807,imageView);
+//               imageLoader.init(ImageUtils.createImageLoaderConfiguration(getActivity()));
+                imageLoader.displayImage(vkApiPhotos.get(0).photo_807, imageView);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -307,4 +321,30 @@ public final class AddPhotoFragment extends BaseFragment {
             Log.d("upload", error.apiError.errorMessage);
         }
     };
+
+
+    public static File getTargetFile(Uri contentUri, Context pContext) throws IOException {
+        File targetFile;
+        if (contentUri.toString().contains("content")) {
+
+            Log.d("FILE_OO", new File(contentUri.toString()).getAbsolutePath());
+            InputStream initialStream = pContext.getContentResolver().openInputStream(contentUri);
+            byte[] buffer = new byte[initialStream.available()];
+            initialStream.read(buffer);
+            String m = pContext.getContentResolver().getType(contentUri);
+            m = m.substring(m.lastIndexOf("/") + 1);
+            targetFile = new File(pContext.getCacheDir()+ (System.currentTimeMillis() + "." + m));
+            OutputStream outStream = new FileOutputStream(targetFile);
+            outStream.write(buffer);
+
+            initialStream.close();
+            outStream.flush();
+            outStream.close();
+
+         //   Log.e("IU", "mime = " + FileUtils.getFileMimeType(pContext, contentUri));
+        } else {
+            targetFile = new File(contentUri.getPath());
+        }
+        return targetFile;
+    }
 }
