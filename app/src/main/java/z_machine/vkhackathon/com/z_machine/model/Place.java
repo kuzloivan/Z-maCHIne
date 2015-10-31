@@ -64,7 +64,7 @@ public final class Place implements ClusterItem {
 
     @Override
     public LatLng getPosition() {
-        return new LatLng(coords.getLat(),coords.getLon());
+        return new LatLng(coords.getLat(), coords.getLon());
     }
 
     public void setId(int id) {
@@ -135,21 +135,23 @@ public final class Place implements ClusterItem {
         this.favorites_count = favorites_count;
     }
 
-
-    public static Place facePlace(){
-        Place place = new Place();
-        place.setTitle("Vk Hackathon");
-        List<Image> images  =new ArrayList<>();
-        Image image = new Image();
-        image.setImage("https://pp.vk.me/c629330/v629330034/14205/oO_z8vCm_PE.jpg");
+    public static Place facePlace() {
+        final Place place = new Place();
+        place.setTitle("императорское коммерческое училище (Университет ИТМО)");
+        place.setAddress("ул.Ломоносова, д.9");
+        place.setDescription("<p>Одно из старейших училищ России пережило переезд, закрытие и даже царскую династию. В настоящее время оно стало частью Университета ИТМО, встречает все новых студентов, провожает выпускников и предоставляет площадку для увлекательных и познавательных мероприятий Петербурга.</p>\n");
+        place.setSlug("imperatorskoe-kommercheskoe-uchilishe");
+        place.setShortTitle("императорское коммерческое училище");
+        final List<Image> images = new ArrayList<>();
+        final Image image = new Image();
+        image.setImage("http://kudago.com/media/images/place/54/0e/540e81ab241ba3db4fec05078f365722.jpg");
         images.add(image);
         place.setImages(images);
-        place.setAddress("fjngjlfdg");
-        place.setDescription("Участникам предлагается разработать за 24 часа прототип мобильного приложения, используя мобильную платформу ВКонтакте и API партнёров.");
-        place.setId(777777777);
-        Coords coords = new Coords();
-        coords.setLat(59.927388);
-        coords.setLon(30.338617);
+        place.setId(24109);
+        place.setPhone("+7 (812) 315–36–17");
+        final Coords coords = new Coords();
+        coords.setLat(59.927315000000014);
+        coords.setLon(30.338272);
         place.setCoords(coords);
         return place;
     }

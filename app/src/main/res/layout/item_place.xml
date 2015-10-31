@@ -1,15 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/itemHeight"
     android:paddingLeft="@dimen/basePadding"
     android:paddingRight="@dimen/basePadding">
 
     <ImageView
         android:id="@+id/ivPlaceBackground"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/itemHeight"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/imageItemPadding"
         android:layout_marginTop="@dimen/basePadding"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
@@ -43,9 +44,9 @@
         style="@style/ZMachineWidget.TextView.Address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivPlaceBackground"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/basePadding"
-        android:layout_marginTop="@dimen/basePadding"
+        android:singleLine="true"
         tools:text="#Hackaton" />
 
 </RelativeLayout>
