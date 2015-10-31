@@ -46,4 +46,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:8.1.0'
     compile 'com.google.maps.android:android-maps-utils:0.4+'
     compile 'com.bettervectordrawable:lib:0.4'
+    compile 'io.realm:realm-android:0.84.1'
+
 }
