@@ -28,4 +28,7 @@ public interface Api {
 
     @GET(Url.EVENTS_BY_PLACE)
     Call<GetEvents> getEventsByPlace(@Query("place_id") String placeId);
+
+    @GET(Url.QUERY_PLACES)
+    Call<GetPlaces> getQueryPlaces(@Query("q") String query);
 }

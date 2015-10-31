@@ -11,8 +11,8 @@ import java.util.List;
 
 public abstract class GenericAdapter<T, VHType extends VH.AbsVH<T>> extends BaseAdapter {
 
+    protected final List<T> items;
     private final LayoutInflater layoutInflater;
-    private final List<T> items;
     private final int layoutResId;
 
     protected abstract VHType createViewHolder(View inflatedView);

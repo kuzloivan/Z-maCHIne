@@ -11,4 +11,6 @@ public interface NetBridge {
     void getPlace(int requestId, int placeId);
 
     void getEventsByPlace(int requestId, int placeId);
+
+    void getQueryPlaces(int requestId, String query);
 }
