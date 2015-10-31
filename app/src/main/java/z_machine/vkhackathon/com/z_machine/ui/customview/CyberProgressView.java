@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Created by Kuzlo on 04.07.2015.
  */
-public class CyberProgressView extends View {
+public final class CyberProgressView extends View {
 
     private static int[][] colors = {
             {0xFFFFEBEE,0xFFFFCDD2,0xFFEF9A9A,0xFFE57373,0xFFEF5350,0xFFF44336,0xFFE53935,0xFFD32F2F,0xFFC62828,0xFFB71C1C},

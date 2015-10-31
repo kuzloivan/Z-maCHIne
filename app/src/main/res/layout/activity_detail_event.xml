@@ -26,22 +26,55 @@
                 android:layout_alignRight="@id/pagerEvents"
                 android:layout_marginRight="@dimen/basePadding" />
 
+            <TextView
+                android:id="@+id/tvDescriptionText"
+                style="@style/ZMachineWidget.TextView.Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pagerEvents"
+                android:layout_margin="@dimen/basePadding"
+                android:text="Описание" />
+
+            <View
+                android:id="@+id/viewLine"
+                style="@style/ZMachineWidget.Divider"
+                android:layout_below="@id/tvDescriptionText" />
+
 
             <TextView
                 android:id="@+id/tvEventsBody"
                 style="@style/ZMachineWidget.TextView.Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/pagerEvents"
+                android:layout_below="@+id/viewLine"
                 android:layout_margin="@dimen/basePadding"
                 tools:text="Body" />
+
+            <TextView
+                android:id="@+id/tvEventText"
+                style="@style/ZMachineWidget.TextView.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvEventsBody"
+                android:layout_marginBottom="@dimen/basePadding"
+                android:layout_marginLeft="@dimen/basePadding"
+                android:layout_marginRight="@dimen/basePadding"
+                android:text="Фото: ВКонтакте"
+                android:visibility="invisible"/>
+
+            <View
+                android:id="@+id/viewBelowLine"
+                style="@style/ZMachineWidget.Divider"
+                android:layout_below="@id/tvEventText"
+                android:visibility="invisible"/>
 
             <GridView
                 android:id="@+id/photoEventGrid"
                 android:layout_width="match_parent"
+                android:layout_margin="@dimen/basePadding"
                 android:layout_height="match_parent"
-                android:layout_below="@id/tvEventsBody"
-                android:numColumns="3"></GridView>
+                android:layout_below="@id/viewBelowLine"
+                android:numColumns="3" />
 
         </RelativeLayout>
 
