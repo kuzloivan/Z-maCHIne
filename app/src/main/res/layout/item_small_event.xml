@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
@@ -10,7 +11,7 @@
         android:layout_height="75dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/event" />
+        tools:src="@drawable/event" />
 
     <TextView
         android:id="@+id/tvEventName"
@@ -20,7 +21,7 @@
         android:layout_toRightOf="@id/ivEventImage"
         android:maxLines="2"
         android:fontFamily="sans-serif-light"
-        android:text="Some event"
+        tools:text="Some event"
         android:textColor="#000000"
         android:textSize="16sp" />
 
@@ -33,7 +34,7 @@
         android:layout_toRightOf="@id/ivEventImage"
         android:singleLine="true"
         android:fontFamily="sans-serif-light"
-        android:text="#KudaGoEvent12345"
+        tools:text="#KudaGoEvent12345"
         android:textColor="#585757"
         android:textSize="12sp" />
 

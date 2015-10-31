@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/basePadding"
+    android:paddingRight="@dimen/basePadding">
+
+    <ImageView
+        android:id="@+id/ivPlaceBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/itemHeight"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/basePadding"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/event" />
+
+    <TextView
+        android:id="@+id/tvPlaceName"
+        style="@style/ZMachineWidget.TextView.HashTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ivPlaceBackground"
+        android:layout_margin="@dimen/basePadding"
+        android:paddingLeft="@dimen/basePadding"
+        android:paddingRight="@dimen/basePadding"
+        tools:text="Хакатон ВК" />
+
+    <TextView
+        android:id="@+id/tvPlaceCity"
+        style="@style/ZMachineWidget.TextView.HashTag.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tvPlaceName"
+        android:layout_marginLeft="@dimen/basePadding"
+        android:layout_marginRight="@dimen/basePadding"
+        android:paddingLeft="@dimen/basePadding"
+        android:paddingRight="@dimen/basePadding"
+        tools:text="Санкт-Петербург" />
+
+    <TextView
+        android:id="@+id/tvPlaceAddress"
+        style="@style/ZMachineWidget.TextView.Address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivPlaceBackground"
+        android:layout_marginBottom="@dimen/basePadding"
+        android:layout_marginTop="@dimen/basePadding"
+        tools:text="#Hackaton" />
+
+</RelativeLayout>
