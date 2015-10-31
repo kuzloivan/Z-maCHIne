@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import z_machine.vkhackathon.com.z_machine.R;
 
@@ -185,6 +186,7 @@ public final class AddPhotoFragment extends BaseFragment {
         bmOptions.inPurgeable = true;
 
         bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
         imageView.setImageBitmap(bitmap);
     }
 
@@ -195,30 +197,61 @@ public final class AddPhotoFragment extends BaseFragment {
     }
 
     private void sendPhoto(){
-        VKRequest request = VKApi.uploadAlbumPhotoRequest(new VKUploadImage(bitmap, VKImageParameters.pngImage()), appBridge.getSharedHelper().getAlbumId(), 0);
-        request.executeWithListener(new VKRequest.VKRequestListener() {
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
-            public void onComplete(VKResponse response) {
-                Log.d("upload",response.responseString);
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = response.json.getJSONArray(("response"));
-                    int length = jsonArray.length();
-                    for (int i = 0; i < length; i++) {
-                        VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
-                        VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", "#hackathon"));
-                        photoRequest.executeWithListener(uploadPhotoRequestListener);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            public void run() {
+                Log.d("upload", "start");
+                bitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth()/4,bitmap.getHeight()/4,false);
+                VKRequest request = VKApi.uploadAlbumPhotoRequest(new VKUploadImage(bitmap, VKImageParameters.pngImage()), appBridge.getSharedHelper().getAlbumId(), 0);
 
-            @Override
-            public void onError(VKError error) {
-                Log.d("upload",error.apiError.errorMessage);
+                request.executeWithListener(new VKRequest.VKRequestListener() {
+                    @Override
+                    public void onComplete(VKResponse response) {
+                        super.onComplete(response);
+                        Log.d("upload", response.responseString);
+                    }
+
+                    @Override
+                    public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
+                        super.onProgress(progressType, bytesLoaded, bytesTotal);
+                        Log.d("upload", bytesLoaded + "//" + bytesTotal);
+                    }
+
+                    @Override
+                    public void onError(VKError error) {
+                        super.onError(error);
+                    }
+
+                    @Override
+                    public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                        super.attemptFailed(request, attemptNumber, totalAttempts);
+                    }
+
+//                    @Override
+//                    public void onComplete(VKResponse response) {
+//                        Log.d("upload", response.responseString);
+//                        JSONArray jsonArray = null;
+//                        try {
+//                            jsonArray = response.json.getJSONArray(("response"));
+//                            int length = jsonArray.length();
+//                            for (int i = 0; i < length; i++) {
+//                                VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
+//                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", "#hackathon"));
+//                                photoRequest.executeWithListener(uploadPhotoRequestListener);
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(VKError error) {
+//                        Log.d("upload", error.apiError.errorMessage);
+//                    }
+                });
             }
         });
+
     }
 
     private class ClickListener implements View.OnClickListener {

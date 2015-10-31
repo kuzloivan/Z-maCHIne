@@ -1,10 +1,10 @@
 package z_machine.vkhackathon.com.z_machine.ui.fragment;
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,17 +41,20 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     private Map<Integer, Place> placeMap = new HashMap<>();
     private int clickedMarker;
     private LatLng loc = new LatLng(59.91979700000001, 30.334911999999996);
+    boolean moveMap = true;
 
     public static Fragment getInstance() {
         return new PlaceLocationFragment();
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         appBridge = (AppBridge) getActivity().getApplicationContext();
         getMapAsync(this);
-        appBridge.getNetBridge().getPlaces(GET_PLACE_LIST);
+        appBridge.getNetBridge().getPlaces(GET_PLACE_LIST, loc.latitude, loc.longitude);
     }
+
 
 
     @Override
@@ -66,12 +69,35 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         googleMap.setMyLocationEnabled(true);
     }
 
-    private void moveToMyPosition(GoogleMap googleMap) {
-//        Location loc = googleMap.getMyLocation();
-//        LatLng latLng = new LatLng(loc.getLatitude(),loc.getLongitude());
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//        googleMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+    private void moveToMyPosition(final GoogleMap googleMap) {
+//        final Handler handler = new Handler();
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (googleMap.getMyLocation() == null) {
+//                    handler.postDelayed(this, 1000);
+//                } else {
+//                    Location loc = googleMap.getMyLocation();
+//
+//                }
+//            }
+//        });
+        googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                if(moveMap){
+                    appBridge.getNetBridge().getPlaces(GET_PLACE_LIST,location.getLatitude(),location.getLongitude());
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    googleMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+                    moveMap =false;
+                }
+                Log.d("LOCATION", "CHANGED");
+
+            }
+        });
     }
+
 
     private void initCluster(GoogleMap googleMap) {
         clusterManager = new ClusterManager<Place>(getActivity(), googleMap);
@@ -86,7 +112,6 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         clusterManager.setOnClusterClickListener(clicker);
         clusterManager.setOnClusterItemInfoWindowClickListener(clicker);
     }
-
 
 
     @Override
@@ -107,10 +132,11 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     public void networkEventListener(BaseEvent item) {
         if (item.getRequestId() == GET_PLACE_LIST) {
             GetPlaces places = (GetPlaces) item.getBody();
+            places.getPlaces().add(0,Place.facePlace());
             for (Place place : places.getPlaces()) {
-                clusterManager.addItem(place);
-                placeMap.put(place.getId(),place);
+                placeMap.put(place.getId(), place);
             }
+            clusterManager.addItems(placeMap.values());
             clusterManager.cluster();
             return;
         }
@@ -153,15 +179,15 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         public View getInfoWindow(Marker marker) {
             Place place = placeMap.get(clickedMarker);
             View view = View.inflate(getActivity(), R.layout.item_info_window, null);
-            place.setTitle(place.getTitle().substring(0,1).toUpperCase() +place.getTitle().substring(1) );
+            place.setTitle(place.getTitle().substring(0, 1).toUpperCase() + place.getTitle().substring(1));
             TextView title = (TextView) view.findViewById(R.id.info_window_title);
             TextView desc = (TextView) view.findViewById(R.id.info_window_desc);
             TextView comm = (TextView) view.findViewById(R.id.info_window_coments);
             TextView favour = (TextView) view.findViewById(R.id.info_window_favoutist);
             title.setText(place.getTitle());
             desc.setText(Html.fromHtml(place.getDescription()));
-            comm.setText(place.getComments_count()+"");
-            favour.setText(place.getFavorites_count()+"");
+            comm.setText(place.getComments_count() + "");
+            favour.setText(place.getFavorites_count() + "");
             return view;
         }
 
