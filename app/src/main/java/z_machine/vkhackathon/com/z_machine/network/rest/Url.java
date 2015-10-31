@@ -9,6 +9,5 @@ public class Url {
     static final String PLACES = "/public-api/v1/places";
     static final String PLACE = "/public-api/v1/places/{id}/?lang=en";
     static final String EVENTS_BY_PLACE = "/public-api/v1/events?fields=images,title,id";
-    static final String QUERY_PLACES = "/public-api/v1/search/?type=place";
 
 }

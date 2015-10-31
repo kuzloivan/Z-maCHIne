@@ -5,8 +5,8 @@ import java.util.Map;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
-import retrofit.http.QueryMap;
 import retrofit.http.Query;
+import retrofit.http.QueryMap;
 import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.model.Place;
 import z_machine.vkhackathon.com.z_machine.network.rest.response.GetEvents;
@@ -29,6 +29,4 @@ public interface Api {
     @GET(Url.EVENTS_BY_PLACE)
     Call<GetEvents> getEventsByPlace(@Query("place_id") String placeId);
 
-    @GET(Url.QUERY_PLACES)
-    Call<GetPlaces> getQueryPlaces(@Query("q") String query);
 }
