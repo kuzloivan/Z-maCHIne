@@ -7,11 +7,13 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.List;
+
 import z_machine.vkhackathon.com.z_machine.R;
+import z_machine.vkhackathon.com.z_machine.model.Image;
 import z_machine.vkhackathon.com.z_machine.model.Place;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.ParallaxAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.VH;
-import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
 
 public final class PlaceAdapter extends ParallaxAdapter<Place, PlaceAdapter.ViewHolder> {
 
@@ -20,7 +22,6 @@ public final class PlaceAdapter extends ParallaxAdapter<Place, PlaceAdapter.View
     public PlaceAdapter(Context context) {
         super(context, R.layout.item_place);
         imageLoader = ImageLoader.getInstance();
-//        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
     }
 
     @Override
@@ -60,10 +61,16 @@ public final class PlaceAdapter extends ParallaxAdapter<Place, PlaceAdapter.View
         @Override
         public void fill(Place model) {
             ivBackground.setImageBitmap(null);
-            imageLoader.displayImage(model.getImages().get(0).getImage(), ivBackground);
+            if (isImageTrue(model.getImages())) {
+                imageLoader.displayImage(model.getImages().get(0).getImage(), ivBackground);
+            }
             tvName.setText(model.getTitle());
             tvAddress.setText(model.getAddress());
             tvCity.setText(ST_PETERSBURG);
+        }
+
+        private boolean isImageTrue(List<Image> images) {
+            return images.size() > 0;
         }
 
     }
