@@ -64,6 +64,9 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         moveToMyPosition(googleMap);
         initCluster(googleMap);
         addPlacesToMap();
+        googleMap.setMyLocationEnabled(false);
+
+
 
     }
 
@@ -72,20 +75,9 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     }
 
     private void moveToMyPosition(final GoogleMap googleMap) {
-        googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                if(moveMap){
-                    appBridge.getNetBridge().getPlaces(GET_PLACE_LIST,loc.latitude,loc.longitude);
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    googleMap.moveCamera(CameraUpdateFactory.zoomTo(12));
-                    moveMap =false;
-                }
-                Log.d("LOCATION", "CHANGED");
-
-            }
-        });
+        LatLng latLng = new LatLng(loc.latitude, loc.longitude);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 
