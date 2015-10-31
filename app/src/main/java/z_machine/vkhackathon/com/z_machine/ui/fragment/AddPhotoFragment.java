@@ -35,7 +35,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import z_machine.vkhackathon.com.z_machine.R;
 
@@ -77,6 +79,7 @@ public final class AddPhotoFragment extends BaseFragment {
         sendBtn.setOnClickListener(clickListener);
         takeBtn.setOnClickListener(clickListener);
         pickBtn.setOnClickListener(clickListener);
+        search();
     }
 
     @Override
@@ -185,6 +188,12 @@ public final class AddPhotoFragment extends BaseFragment {
         imageView.setImageBitmap(bitmap);
     }
 
+    private void search(){
+        String hashtag = "&#hackathon";
+        VKRequest searchRequest = new VKRequest("photos.search",VKParameters.from("q",hashtag));
+        searchRequest.executeWithListener(searchPhotoRequestListener);
+    }
+
     private void sendPhoto(){
         VKRequest request = VKApi.uploadAlbumPhotoRequest(new VKUploadImage(bitmap, VKImageParameters.pngImage()), appBridge.getSharedHelper().getAlbumId(), 0);
         request.executeWithListener(new VKRequest.VKRequestListener() {
@@ -236,6 +245,32 @@ public final class AddPhotoFragment extends BaseFragment {
             super.onComplete(response);
             Log.d("upload", response.responseString);
             Toast.makeText(getActivity(),"Successfully completed",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(VKError error) {
+            super.onError(error);
+            Log.d("upload", error.apiError.errorMessage);
+        }
+    };
+
+    VKRequest.VKRequestListener searchPhotoRequestListener = new VKRequest.VKRequestListener(){
+        @Override
+        public void onComplete(VKResponse response) {
+            super.onComplete(response);
+            Log.d("search", response.responseString);
+            JSONArray jsonArray = null;
+            List<VKApiPhoto> vkApiPhotos = new ArrayList<>();
+            try {
+                jsonArray = response.json.getJSONObject("response").getJSONArray("items");
+                int length = jsonArray.length();
+                for (int i = 0; i < length; i++) {
+                    VKApiPhoto photo= new VKApiPhoto(jsonArray.getJSONObject(i));
+                    vkApiPhotos.add(photo);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
