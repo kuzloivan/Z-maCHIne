@@ -67,10 +67,10 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     }
 
     private void moveToMyPosition(GoogleMap googleMap) {
-       // Location loc = googleMap.getMyLocation();
-       // LatLng latLng = new LatLng(loc.getLatitude(),loc.getLongitude());
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+//        Location loc = googleMap.getMyLocation();
+//        LatLng latLng = new LatLng(loc.getLatitude(),loc.getLongitude());
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//        googleMap.moveCamera(CameraUpdateFactory.zoomTo(12));
     }
 
     private void initCluster(GoogleMap googleMap) {
@@ -153,7 +153,7 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         public View getInfoWindow(Marker marker) {
             Place place = placeMap.get(clickedMarker);
             View view = View.inflate(getActivity(), R.layout.item_info_window, null);
-            place.setTitle(place.getTitle().substring(0,0).toUpperCase() +place.getTitle().substring(1) );
+            place.setTitle(place.getTitle().substring(0,1).toUpperCase() +place.getTitle().substring(1) );
             TextView title = (TextView) view.findViewById(R.id.info_window_title);
             TextView desc = (TextView) view.findViewById(R.id.info_window_desc);
             TextView comm = (TextView) view.findViewById(R.id.info_window_coments);
