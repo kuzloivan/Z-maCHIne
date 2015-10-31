@@ -2,6 +2,8 @@ package z_machine.vkhackathon.com.z_machine.core;
 
 import android.app.Application;
 
+import com.vk.sdk.VKSdk;
+
 import z_machine.vkhackathon.com.z_machine.core.appinterface.AppBridge;
 
 public final class ZApp extends Application implements AppBridge {
@@ -10,7 +12,7 @@ public final class ZApp extends Application implements AppBridge {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        VKSdk.initialize(this);
         sharedHelper = new SharedHelper(this);
     }
 

@@ -30,8 +30,8 @@ public class SplashActivity extends BaseActivity {
         if(appBridge.getSharedHelper().isValidVkToken()){
             MainActivity.start(this);
         }else {
-          //  VKSdk.login(this,"photos");
-            MainActivity.start(this);
+            VKSdk.login(this,"photos");
+//            MainActivity.start(this);
         }
     }
 
