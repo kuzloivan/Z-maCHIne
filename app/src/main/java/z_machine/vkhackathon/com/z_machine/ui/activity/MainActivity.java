@@ -1,5 +1,7 @@
 package z_machine.vkhackathon.com.z_machine.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -90,5 +92,10 @@ public final class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public static void start(Activity activity) {
+        Intent intent = new Intent(activity,MainActivity.class);
+        activity.startActivity(intent);
     }
 }
