@@ -41,7 +41,7 @@ public final class PlaceLocationFragment extends SupportMapFragment implements O
     private ClusterManager<Place> clusterManager;
     private Map<Integer, Place> placeMap = new HashMap<>();
     private int clickedMarker;
-    public static LatLng loc = new LatLng(59.927315000000014, 30.338272);
+    public static LatLng loc = new LatLng(59.927315000000014d, 30.33827d);
     boolean moveMap = true;
 
     public static Fragment getInstance() {
@@ -117,6 +117,7 @@ public final class PlaceLocationFragment extends SupportMapFragment implements O
            // places.getPlaces().add(0,Place.facePlace());
             appBridge.getRestoreManager().addPlaces(places.getPlaces());
             addPlacesToMap();
+            moveToMyPosition(getMap());
             return;
         }
     }
