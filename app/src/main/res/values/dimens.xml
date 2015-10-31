@@ -5,6 +5,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="dividerHeight">1dp</dimen>
+    <dimen name="eventPagerHeight">250dp</dimen>
 
     <dimen name="basePadding">8dp</dimen>
+    <dimen name="doublePadding">16dp</dimen>
+
+    <dimen name="hashTagText">16sp</dimen>
+    <dimen name="normalText">14sp</dimen>
+    <dimen name="bigText">22sp</dimen>
+
 </resources>

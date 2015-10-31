@@ -1,5 +1,42 @@
 <resources>
-    <!--Widgets -->
 
-    <style name="ZWidget" />
+    <style name="ZMachineWidget" parent="android:Widget"/>
+
+    <style name="ZMachineWidget.TextView" parent="android:Widget.TextView"/>
+
+    <style name="ZMachineWidget.TextView.Title">
+        <item name="android:textSize">@dimen/bigText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ZMachineWidget.TextView.Body">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/blackText</item>
+        <item name="android:textSize">@dimen/normalText</item>
+    </style>
+
+    <style name="ZMachineWidget.TextView.Description">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/descriptionText</item>
+        <item name="android:textSize">@dimen/normalText</item>
+    </style>
+
+    <style name="ZMachineWidget.TextView.HashTag">
+        <item name="android:background">@color/hashTagBackground</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/hashTagText</item>
+        <item name="android:textColor">@color/baseText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ZMachineWidget.Divider">
+        <item name="android:background">@color/dividerColor</item>
+        <item name="android:layout_marginLeft">@dimen/basePadding</item>
+        <item name="android:layout_marginRight">@dimen/basePadding</item>
+        <item name="android:layout_height">@dimen/dividerHeight</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
 </resources>
