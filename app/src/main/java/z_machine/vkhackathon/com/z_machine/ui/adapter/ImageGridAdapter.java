@@ -35,6 +35,9 @@ public class ImageGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if(mThumbIds==null){
+            return 0;
+        }
         return mThumbIds.size();
     }
 
@@ -52,8 +55,8 @@ public class ImageGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(70, 70));
-        imageLoader.displayImage(mThumbIds.get(position).photo_75, imageView);
+        imageView.setLayoutParams(new GridView.LayoutParams(256, 256));
+        imageLoader.displayImage(mThumbIds.get(position).photo_604, imageView);
         return imageView;
     }
 }

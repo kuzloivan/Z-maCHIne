@@ -3,7 +3,7 @@ package z_machine.vkhackathon.com.z_machine.utils;
 public final class SystemUtils {
 
     private static final String HASH_TAG_PLACE_PATTERN = "#KudaGoPlace";
-    private static final String HASH_TAG_EVENT_PATTERN = "#KudaGoEvent";
+    private static final String HASH_TAG_EVENT_PATTERN = "#kudago@";
 
     public static String placeHashTagById(int placeId) {
         return HASH_TAG_PLACE_PATTERN + placeId;

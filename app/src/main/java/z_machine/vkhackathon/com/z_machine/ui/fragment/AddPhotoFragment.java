@@ -191,7 +191,7 @@ public final class AddPhotoFragment extends BaseFragment {
                             int length = jsonArray.length();
                             for (int i = 0; i < length; i++) {
                                 VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
-                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", "#hackathon"));
+                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", "#kudago@99842"));
                                 photoRequest.executeWithListener(uploadPhotoRequestListener);
                             }
                         } catch (JSONException e) {
@@ -247,7 +247,6 @@ public final class AddPhotoFragment extends BaseFragment {
     public static File getTargetFile(Uri contentUri, Context pContext) throws IOException {
         File targetFile;
         if (contentUri.toString().contains("content")) {
-
             Log.d("FILE_OO", new File(contentUri.toString()).getAbsolutePath());
             InputStream initialStream = pContext.getContentResolver().openInputStream(contentUri);
             byte[] buffer = new byte[initialStream.available()];
