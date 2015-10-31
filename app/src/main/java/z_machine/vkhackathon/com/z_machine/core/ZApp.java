@@ -1,7 +1,9 @@
 package z_machine.vkhackathon.com.z_machine.core;
 
 import android.app.Application;
+import android.graphics.drawable.Drawable;
 
+import com.bettervectordrawable.VectorDrawableCompat;
 import com.vk.sdk.VKSdk;
 
 import z_machine.vkhackathon.com.z_machine.core.appinterface.AppBridge;
@@ -19,6 +21,11 @@ public final class ZApp extends Application implements AppBridge {
         netBridge = new NetManager();
         VKSdk.initialize(this);
         sharedHelper = new SharedHelper(this);
+    }
+
+    private void initVector(){
+        int[] ids = VectorDrawableCompat.findAllVectorResourceIdsSlow(getResources(), Drawable.class);
+        VectorDrawableCompat.enableResourceInterceptionFor(getResources(),ids);
     }
 
     @Override

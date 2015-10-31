@@ -75,6 +75,7 @@ public final class DetailPlaceActivity extends BaseActivity {
             Place placeBodyResponse = (Place) event.getBody();
             tvTitle.setText(placeBodyResponse.getTitle());
             tvHashTag.setText(SystemUtils.placeHashTagById(placeBodyResponse.getId()));
+
             tvBody.setText(Html.fromHtml(placeBodyResponse.getDescription()));
             tvDescription.setText(placeBodyResponse.getAddress());
             viewPager.setAdapter(new PlacePagerAdapter(placeBodyResponse.getImages(),
