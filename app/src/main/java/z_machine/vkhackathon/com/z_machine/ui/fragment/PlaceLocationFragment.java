@@ -122,7 +122,7 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     public void networkEventListener(BaseEvent item) {
         if (item.getRequestId() == GET_PLACE_LIST) {
             GetPlaces places = (GetPlaces) item.getBody();
-            places.getPlaces().add(0,Place.facePlace());
+           // places.getPlaces().add(0,Place.facePlace());
             appBridge.getRestoreManager().addPlaces(places.getPlaces());
             addPlacesToMap();
             return;

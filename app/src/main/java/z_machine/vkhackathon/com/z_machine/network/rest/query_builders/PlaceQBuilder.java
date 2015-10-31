@@ -9,6 +9,7 @@ import java.util.Set;
  * Created by Kuzlo on 31.10.2015.
  */
 public class PlaceQBuilder {
+
     public static final String LOCATION = "location";
     public static final String LON = "lon";
     public static final String LAT = "lat";
@@ -16,8 +17,8 @@ public class PlaceQBuilder {
     public static final String FIELDS = "fields";
     public static final String PAGE_SIZE = "page_size";
 
-    private Map<String,String> queryMap = new HashMap<>();
-    private Set<String> params = new HashSet<>();
+    protected Map<String,String> queryMap = new HashMap<>();
+    protected Set<String> params = new HashSet<>();
 
 
     public PlaceQBuilder setLocation(String s){

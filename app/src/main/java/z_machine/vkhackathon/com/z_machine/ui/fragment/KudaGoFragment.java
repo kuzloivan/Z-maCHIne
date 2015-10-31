@@ -3,8 +3,13 @@ package z_machine.vkhackathon.com.z_machine.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,17 +29,42 @@ import z_machine.vkhackathon.com.z_machine.ui.customview.ParallaxListView;
 public final class KudaGoFragment extends BaseFragment {
 
     private static final int GET_PLACES = 1;
+    private static final int GET_QUERY_PLACES = 5;
 
     public static Fragment getInstance() {
         return new KudaGoFragment();
     }
 
     private PlaceAdapter placeAdapter;
+    private SearchView searchView;
+    private MenuItem searchItem;
+    private ParallaxListView lvEvents;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         placeAdapter = new PlaceAdapter(getContext());
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        searchItem = menu.findItem(R.id.actionSearch);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                placeAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
     }
 
     @Nullable
@@ -57,9 +87,8 @@ public final class KudaGoFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         BusProvider.getInstance().register(this);
-        if (placeAdapter.isEmpty()) {
             appBridge.getNetBridge().getPlaces(GET_PLACES, PlaceLocationFragment.loc.latitude, PlaceLocationFragment.loc.longitude);
-        }
+
     }
 
     @Override
@@ -72,7 +101,7 @@ public final class KudaGoFragment extends BaseFragment {
     public void networkEventListener(BaseEvent event) {
         if (event.getRequestId() == GET_PLACES) {
             final GetPlaces placesResponseBody = (GetPlaces) event.getBody();
-            placesResponseBody.getPlaces().add(0,Place.facePlace());
+//            placesResponseBody.getPlaces().add(0,Place.facePlace());
             appBridge.getRestoreManager().addPlaces(placesResponseBody.getPlaces());
             placeAdapter.add(appBridge.getRestoreManager().getPlaces());
         }

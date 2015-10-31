@@ -58,4 +58,5 @@ public class NetManager implements NetBridge {
     public void getEventsByPlace(int requestId, int placeId) {
         api.getEventsByPlace(String.valueOf(placeId)).enqueue(new MainCallback<GetEvents>(requestId));
     }
+
 }
