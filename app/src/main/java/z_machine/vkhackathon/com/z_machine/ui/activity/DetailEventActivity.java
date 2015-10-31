@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,9 +36,10 @@ import z_machine.vkhackathon.com.z_machine.network.rest.response.GetEvents;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.ImageGridAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.event.EventByPlaceAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
+import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
-public final class DetailEventActivity extends BaseActivity {
+public final class DetailEventActivity extends BaseActivity implements View.OnClickListener{
 
     private static final int GET_EVENT = 7;
 
@@ -58,7 +60,7 @@ public final class DetailEventActivity extends BaseActivity {
     private CircleIndicator circleIndicator;
     private ViewPager viewPager;
     private TextView tvBody;
-    //private EventByPlaceAdapter eventByPlaceAdapter;
+    private Event eventBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,8 @@ public final class DetailEventActivity extends BaseActivity {
         tvBody = (TextView) findViewById(R.id.tvEventsBody);
         gridView = (GridView) findViewById(R.id.photoEventGrid);
         gridView.setAdapter(new ImageGridAdapter(this));
+
+        findViewById(R.id.activity_detail_photo_btn).setOnClickListener(this);
     }
 
     @Override
@@ -93,7 +97,7 @@ public final class DetailEventActivity extends BaseActivity {
     @Subscribe
     public void networkEventListener(BaseEvent event) {
         if (event.getRequestId() == GET_EVENT) {
-            final Event eventBody = (Event) event.getBody();
+            eventBody = (Event) event.getBody();
             tvBody.setText(Html.fromHtml(eventBody.getDescription()));
             viewPager.setAdapter(new PlacePagerAdapter(eventBody.getImages(),
                     getApplicationContext()));
@@ -141,5 +145,15 @@ public final class DetailEventActivity extends BaseActivity {
             Log.d("upload", "((((");
         }
     };
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activity_detail_photo_btn:
+                AddPhotoActivity.start(DetailEventActivity.this, eventId,eventBody.getTitle(),eventBody.getImages().get(0).getImage());
+                break;
+        }
+    }
 
 }

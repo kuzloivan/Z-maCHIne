@@ -1,43 +1,58 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pagerEvents"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/eventPagerHeight" />
-
-        <me.relex.circleindicator.CircleIndicator
-            android:id="@+id/circleIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/indicatorHeight"
-            android:layout_alignBottom="@id/pagerEvents"
-            android:layout_alignRight="@id/pagerEvents"
-            android:layout_marginRight="@dimen/basePadding" />
-
-
-        <TextView
-            android:id="@+id/tvEventsBody"
-            style="@style/ZMachineWidget.TextView.Body"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/pagerEvents"
-            android:layout_margin="@dimen/basePadding"
-            tools:text="Body" />
+            android:orientation="vertical">
 
-        <GridView
-            android:id="@+id/photoEventGrid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tvEventsBody"
-            android:numColumns="3"></GridView>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pagerEvents"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/eventPagerHeight" />
 
-    </RelativeLayout>
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/circleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/indicatorHeight"
+                android:layout_alignBottom="@id/pagerEvents"
+                android:layout_alignRight="@id/pagerEvents"
+                android:layout_marginRight="@dimen/basePadding" />
 
-</ScrollView>
+
+            <TextView
+                android:id="@+id/tvEventsBody"
+                style="@style/ZMachineWidget.TextView.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pagerEvents"
+                android:layout_margin="@dimen/basePadding"
+                tools:text="Body" />
+
+            <GridView
+                android:id="@+id/photoEventGrid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tvEventsBody"
+                android:numColumns="3"></GridView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_detail_photo_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/camera25" />
+
+</android.support.design.widget.CoordinatorLayout>

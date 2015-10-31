@@ -51,6 +51,17 @@ public class RestoreManager {
         realm.commitTransaction();
     }
 
+    public void saveEvent(int id, String image, String title) {
+        MyEventRealmObject m = new MyEventRealmObject();
+        m.setId(id);
+        m.setEventHashTag(SystemUtils.eventHashTagById(id));
+        m.setEventPhoto(image);
+        m.setEventName(title);
+        Realm realm = Realm.getInstance(context);
+        realm.copyToRealmOrUpdate(m);
+        realm.commitTransaction();
+    }
+
     public List<MyEventRealmObject> getMyEvents(){
         return Realm.getInstance(context).allObjectsSorted(MyEventRealmObject.class,"time",false);
     }

@@ -13,11 +13,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import z_machine.vkhackathon.com.z_machine.R;
-import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.KudaGoFragment;
+import z_machine.vkhackathon.com.z_machine.ui.fragment.MyEventsFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.PlaceLocationFragment;
 import z_machine.vkhackathon.com.z_machine.utils.FragmentLauncher;
 
@@ -78,8 +76,8 @@ public final class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(MenuItem item) {
             final Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.nav_add_photo:
-                    fragment = AddPhotoFragment.getInstance();
+                case R.id.nav_my_events:
+                    fragment = MyEventsFragment.getInstance();
                     break;
                 case R.id.nav_kudago:
                     fragment = KudaGoFragment.getInstance();

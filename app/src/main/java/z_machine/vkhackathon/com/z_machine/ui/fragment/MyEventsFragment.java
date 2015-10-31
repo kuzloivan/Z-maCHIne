@@ -2,6 +2,7 @@ package z_machine.vkhackathon.com.z_machine.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,11 @@ public class MyEventsFragment  extends BaseFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         placeAdapter = new MyEventAdapter(getContext());
+    }
+
+
+    public static Fragment getInstance() {
+        return new MyEventsFragment();
     }
 
     @Nullable

@@ -28,8 +28,9 @@ import z_machine.vkhackathon.com.z_machine.ui.activity.BaseActivity;
 import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.event.EventByPlaceAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
+import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 
-public final class DetailPlaceActivity extends BaseActivity {
+public final class DetailPlaceActivity extends BaseActivity{
 
     private static final int GET_PLACE = 2;
     private static final int GET_EVENTS = 3;
@@ -73,7 +74,7 @@ public final class DetailPlaceActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Event item = eventByPlaceAdapter.getItem(position);
-                DetailEventActivity.start(DetailPlaceActivity.this,item.getId(),item.getTitle());
+                DetailEventActivity.start(DetailPlaceActivity.this, item.getId(), item.getTitle());
             }
         });
         setListViewHeightBasedOnChildren(lvEvents);
