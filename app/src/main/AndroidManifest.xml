@@ -20,7 +20,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup">
+        tools:ignore="AllowBackup"
+        android:screenOrientation="portrait">
 
         <activity
             android:name=".ui.activity.SplashActivity"
@@ -37,16 +38,21 @@
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".ui.fragment.AddPhotoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.place.DetailPlaceActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.activity.DetailEventActivity"/>
 
         <activity
             android:name="com.vk.sdk.VKServiceActivity"
             android:label="ServiceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/VK.Transparent" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

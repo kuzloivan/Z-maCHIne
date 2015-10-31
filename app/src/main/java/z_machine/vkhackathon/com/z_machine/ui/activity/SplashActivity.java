@@ -8,6 +8,7 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
@@ -55,7 +56,8 @@ public class SplashActivity extends BaseActivity {
             appBridge.getSharedHelper().saveVkToken(res);
             VKRequest vkGetAlbumsRequest = new VKRequest("photos.getAlbums");
             vkGetAlbumsRequest.executeWithListener(albumRequestListener);
-
+            VKRequest request = VKApi.users().get(VKParameters.from("fields","photo_big"));
+            request.executeAfterRequest(vkGetAlbumsRequest, userRequestListener);
         }
 
         @Override
@@ -75,12 +77,10 @@ public class SplashActivity extends BaseActivity {
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            MainActivity.start(SplashActivity.this);
         }
 
         @Override
         public void onError(VKError error) {
-
             Log.d("album",error.apiError.errorMessage);
         }
     };
@@ -107,7 +107,6 @@ public class SplashActivity extends BaseActivity {
                     vkRequest.executeWithListener(albumCreateListener);
                 }
                 else {
-                    MainActivity.start(SplashActivity.this);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -117,6 +116,34 @@ public class SplashActivity extends BaseActivity {
         @Override
         public void onError(VKError error) {
             Log.d("album",error.apiError.errorMessage);
+        }
+    };
+
+
+    VKRequest.VKRequestListener userRequestListener = new VKRequest.VKRequestListener() {
+        @Override
+        public void onComplete(VKResponse response) {
+            Log.d("user", response.responseString);
+            JSONArray jsonArray = null;
+            try {
+                jsonArray = response.json.getJSONArray(("response"));
+                int length = jsonArray.length();
+                for (int i = 0; i < length; i++) {
+                    VKApiUser user = new VKApiUser(jsonArray.getJSONObject(i));
+                    appBridge.getSharedHelper().setUserId(user.id);
+                    appBridge.getSharedHelper().setUserPhoto(jsonArray.getJSONObject(i).getString("photo_big"));
+                    appBridge.getSharedHelper().setUserName(user.first_name + " " + user.last_name);
+
+                    MainActivity.start(SplashActivity.this);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(VKError error) {
+            Log.d("user",error.apiError.errorMessage);
         }
     };
 }

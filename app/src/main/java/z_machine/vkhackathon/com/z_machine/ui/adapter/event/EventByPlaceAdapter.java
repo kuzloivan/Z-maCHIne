@@ -52,7 +52,7 @@ public class EventByPlaceAdapter extends GenericAdapter<Event, EventByPlaceAdapt
             if (isImageTrue(model.getImages())) {
                 imageLoader.displayImage(model.getImages().get(0).getImage(), ivEventImage);
             }
-            tvEventHashTag.setText(SystemUtils.eventHashTagById(model.getId()));
+            tvEventHashTag.setText(SystemUtils.eventHashTagByTitle(model.getTitle()));
             tvEventName.setText(model.getTitle());
         }
 

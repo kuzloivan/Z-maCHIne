@@ -7,6 +7,10 @@ import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,13 +21,16 @@ import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.core.bus.BusProvider;
 import z_machine.vkhackathon.com.z_machine.core.bus.event.BaseEvent;
 import z_machine.vkhackathon.com.z_machine.core.bus.event.ErrorEvent;
+import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.model.Place;
 import z_machine.vkhackathon.com.z_machine.network.rest.response.GetEvents;
 import z_machine.vkhackathon.com.z_machine.ui.activity.BaseActivity;
+import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.event.EventByPlaceAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
+import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 
-public final class DetailPlaceActivity extends BaseActivity {
+public final class DetailPlaceActivity extends BaseActivity{
 
     private static final int GET_PLACE = 2;
     private static final int GET_EVENTS = 3;
@@ -61,8 +68,16 @@ public final class DetailPlaceActivity extends BaseActivity {
         circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         tvDescription = (TextView) findViewById(R.id.tvPlaceDescription);
         tvBody = (TextView) findViewById(R.id.tvPlaceBody);
-        ListView lvEvents = (ListView) findViewById(R.id.lvEvents);
+        final ListView lvEvents = (ListView) findViewById(R.id.lvEvents);
         lvEvents.setAdapter(eventByPlaceAdapter);
+        lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Event item = eventByPlaceAdapter.getItem(position);
+                DetailEventActivity.start(DetailPlaceActivity.this, item.getId(), item.getTitle());
+            }
+        });
+        setListViewHeightBasedOnChildren(lvEvents);
     }
 
     @Override
@@ -104,6 +119,29 @@ public final class DetailPlaceActivity extends BaseActivity {
     public void networkErrorEventListener(ErrorEvent errorEvent) {
         Log.e("Places", "requestId: " + errorEvent.getRequestId() + " message: "
                 + errorEvent.getThrowable().getMessage());
+    }
+
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
 }

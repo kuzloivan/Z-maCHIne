@@ -29,6 +29,7 @@ import z_machine.vkhackathon.com.z_machine.core.bus.event.BaseEvent;
 import z_machine.vkhackathon.com.z_machine.core.bus.event.ErrorEvent;
 import z_machine.vkhackathon.com.z_machine.model.Place;
 import z_machine.vkhackathon.com.z_machine.network.rest.response.GetPlaces;
+import z_machine.vkhackathon.com.z_machine.ui.activity.place.DetailPlaceActivity;
 
 /**
  * Created by Kuzlo on 31.10.2015.
@@ -40,7 +41,7 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     private ClusterManager<Place> clusterManager;
     private Map<Integer, Place> placeMap = new HashMap<>();
     private int clickedMarker;
-    private LatLng loc = new LatLng(59.91979700000001, 30.334911999999996);
+    public static LatLng loc = new LatLng(59.927315000000014, 30.338272);
     boolean moveMap = true;
 
     public static Fragment getInstance() {
@@ -62,6 +63,7 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         initMap(googleMap);
         moveToMyPosition(googleMap);
         initCluster(googleMap);
+        addPlacesToMap();
 
     }
 
@@ -70,23 +72,11 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
     }
 
     private void moveToMyPosition(final GoogleMap googleMap) {
-//        final Handler handler = new Handler();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (googleMap.getMyLocation() == null) {
-//                    handler.postDelayed(this, 1000);
-//                } else {
-//                    Location loc = googleMap.getMyLocation();
-//
-//                }
-//            }
-//        });
         googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 if(moveMap){
-                    appBridge.getNetBridge().getPlaces(GET_PLACE_LIST,location.getLatitude(),location.getLongitude());
+                    appBridge.getNetBridge().getPlaces(GET_PLACE_LIST,loc.latitude,loc.longitude);
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     googleMap.moveCamera(CameraUpdateFactory.zoomTo(12));
@@ -133,13 +123,18 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
         if (item.getRequestId() == GET_PLACE_LIST) {
             GetPlaces places = (GetPlaces) item.getBody();
             places.getPlaces().add(0,Place.facePlace());
-            for (Place place : places.getPlaces()) {
-                placeMap.put(place.getId(), place);
-            }
-            clusterManager.addItems(placeMap.values());
-            clusterManager.cluster();
+            appBridge.getRestoreManager().addPlaces(places.getPlaces());
+            addPlacesToMap();
             return;
         }
+    }
+
+    private void addPlacesToMap() {
+        for (Place place : appBridge.getRestoreManager().getPlaces()) {
+            placeMap.put(place.getId(), place);
+        }
+        clusterManager.addItems(placeMap.values());
+        clusterManager.cluster();
     }
 
     @Subscribe
@@ -169,7 +164,7 @@ public class PlaceLocationFragment extends SupportMapFragment implements OnMapRe
 
         @Override
         public void onClusterItemInfoWindowClick(Place place) {
-            //DetailPlaceActivity.start(getActivity(), place.getId());
+            DetailPlaceActivity.start(getActivity(),place.getId(),place.getTitle());
         }
     }
 

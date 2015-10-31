@@ -10,15 +10,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import z_machine.vkhackathon.com.z_machine.R;
+import z_machine.vkhackathon.com.z_machine.core.appinterface.ActivityBridge;
 import z_machine.vkhackathon.com.z_machine.core.appinterface.AppBridge;
+import z_machine.vkhackathon.com.z_machine.ui.MyWaitDialog;
+import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements ActivityBridge {
 
     protected AppBridge appBridge;
     protected Toolbar toolbar;
     private DrawerLayout drawerLayout;
+    private MyWaitDialog myWaitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         toggle.syncState();
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final NavigationItem navigationItem = new NavigationItem(listener);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ((TextView)headerView.findViewById(R.id.nav_header_user_name_tv)).setText(appBridge.getSharedHelper().getUserName());
+        ImageLoader.getInstance().displayImage(appBridge.getSharedHelper().getUserPhoto(), (ImageView) headerView.findViewById(R.id.nav_header_user_photo_iv), ImageUtils.getCircleOptions());
         navigationView.setNavigationItemSelectedListener(navigationItem);
         navigationItem.onNavigationItemSelected(navigationView.getMenu().getItem(0)); //Todo: выпилить костылину !!!!
         return drawerLayout;
@@ -71,5 +83,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
 
+    }
+
+    @Override
+    public void showProgressDialog() {
+        myWaitDialog = MyWaitDialog.initAndShow(this);
+    }
+
+    @Override
+    public void closeDialog() {
+        myWaitDialog.dismiss();
+    }
+    @Override
+    public AppBridge getAppBridge() {
+        return appBridge;
     }
 }

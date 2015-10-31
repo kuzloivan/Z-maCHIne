@@ -9,14 +9,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import z_machine.vkhackathon.com.z_machine.R;
-import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.KudaGoFragment;
+import z_machine.vkhackathon.com.z_machine.ui.fragment.MyEventsFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.PlaceLocationFragment;
 import z_machine.vkhackathon.com.z_machine.utils.FragmentLauncher;
 
 public final class MainActivity extends BaseActivity {
+
+    private TextView userTv;
+    private ImageView userPhotoIv;
 
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
@@ -55,8 +60,8 @@ public final class MainActivity extends BaseActivity {
         public boolean onNavigationItemSelected(MenuItem item) {
             final Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.nav_add_photo:
-                    fragment = AddPhotoFragment.getInstance();
+                case R.id.nav_my_events:
+                    fragment = MyEventsFragment.getInstance();
                     break;
                 case R.id.nav_kudago:
                     fragment = KudaGoFragment.getInstance();

@@ -12,6 +12,8 @@ public class SharedHelper {
 
     private static final String VK_TOKEN = "vk_token";
     private static final String USER_ID = "user_id";
+    private static final String USER_PHOTO = "user_photo";
+    private static final String USER_NAME = "user_name";
     private static final String ALBUM_ID = "album_id";
     private SharedPreferences sharedPreferences;
 
@@ -40,6 +42,22 @@ public class SharedHelper {
 
     public void setUserId(int Id) {
         sharedPreferences.edit().putInt(USER_ID, Id).apply();
+    }
+
+    public String getUserPhoto() {
+        return sharedPreferences.getString(USER_PHOTO, "");
+    }
+
+    public void setUserPhoto(String url) {
+        sharedPreferences.edit().putString(USER_PHOTO, url).apply();
+    }
+
+    public String getUserName() {
+        return sharedPreferences.getString(USER_NAME, "");
+    }
+
+    public void setUserName(String name) {
+        sharedPreferences.edit().putString(USER_NAME, name).apply();
     }
 
     public int getAlbumId() {

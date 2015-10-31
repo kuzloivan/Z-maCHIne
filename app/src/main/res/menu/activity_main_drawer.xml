@@ -7,9 +7,9 @@
             android:icon="@android:drawable/ic_menu_gallery"
             android:title="KudaGo" />
         <item
-            android:id="@+id/nav_add_photo"
+            android:id="@+id/nav_my_events"
             android:icon="@android:drawable/ic_menu_camera"
-            android:title="Add photo" />
+            android:title="My events" />
         <item
             android:id="@+id/nav_geolocation"
             android:icon="@android:drawable/ic_menu_slideshow"
