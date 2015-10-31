@@ -20,6 +20,10 @@ public final class Place implements ClusterItem {
     private String description;
     @SerializedName("body_text")
     private String bodyText;
+    private List<String> categories;
+    private int comments_count;
+    private int favorites_count;
+
 
     public int getId() {
         return id;
@@ -104,5 +108,29 @@ public final class Place implements ClusterItem {
 
     public void setBodyText(String bodyText) {
         this.bodyText = bodyText;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public int getComments_count() {
+        return comments_count;
+    }
+
+    public void setComments_count(int comments_count) {
+        this.comments_count = comments_count;
+    }
+
+    public int getFavorites_count() {
+        return favorites_count;
+    }
+
+    public void setFavorites_count(int favorites_count) {
+        this.favorites_count = favorites_count;
     }
 }
