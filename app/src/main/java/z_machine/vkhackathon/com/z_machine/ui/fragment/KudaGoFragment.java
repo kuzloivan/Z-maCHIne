@@ -77,7 +77,7 @@ public final class KudaGoFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        lvEvents = (ParallaxListView) view.findViewById(R.id.lvElements);
+        final ParallaxListView lvEvents = (ParallaxListView) view.findViewById(R.id.lvElements);
         lvEvents.setAdapter(placeAdapter);
         placeAdapter.add(appBridge.getRestoreManager().getPlaces());
         lvEvents.setOnItemClickListener(new PlaceItemListener());
@@ -87,9 +87,8 @@ public final class KudaGoFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         BusProvider.getInstance().register(this);
-        if (placeAdapter.isEmpty()) {
             appBridge.getNetBridge().getPlaces(GET_PLACES, PlaceLocationFragment.loc.latitude, PlaceLocationFragment.loc.longitude);
-        }
+
     }
 
     @Override
@@ -102,7 +101,7 @@ public final class KudaGoFragment extends BaseFragment {
     public void networkEventListener(BaseEvent event) {
         if (event.getRequestId() == GET_PLACES) {
             final GetPlaces placesResponseBody = (GetPlaces) event.getBody();
-            placesResponseBody.getPlaces().add(0, Place.facePlace());
+//            placesResponseBody.getPlaces().add(0,Place.facePlace());
             appBridge.getRestoreManager().addPlaces(placesResponseBody.getPlaces());
             placeAdapter.add(appBridge.getRestoreManager().getPlaces());
         }
