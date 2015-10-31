@@ -20,6 +20,15 @@ public final class Place implements ClusterItem {
     private String description;
     @SerializedName("body_text")
     private String bodyText;
+    private String[] categories;
+
+    public String[] getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String[] categories) {
+        this.categories = categories;
+    }
 
     public int getId() {
         return id;

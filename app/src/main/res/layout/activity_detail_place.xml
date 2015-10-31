@@ -1,51 +1,25 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvPlaceTitle"
-            style="@style/ZMachineWidget.TextView.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/basePadding"
-            tools:text="Title" />
-
-        <View
-            android:id="@+id/viewTitleLine"
-            style="@style/ZMachineWidget.Divider"
-            android:layout_below="@id/tvPlaceTitle" />
-
         <android.support.v4.view.ViewPager
             android:id="@+id/pagerPlaces"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/eventPagerHeight"
-            android:layout_below="@id/viewTitleLine"
-            android:layout_margin="@dimen/basePadding" />
+            android:layout_height="@dimen/eventPagerHeight" />
 
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/circleIndicator"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/indicatorHeight"
             android:layout_alignBottom="@id/pagerPlaces"
             android:layout_alignRight="@id/pagerPlaces"
-            android:layout_marginBottom="@dimen/basePadding"
             android:layout_marginRight="@dimen/basePadding" />
-
-        <TextView
-            android:id="@+id/tvPlaceHashTag"
-            style="@style/ZMachineWidget.TextView.HashTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/pagerPlaces"
-            android:layout_marginBottom="@dimen/basePadding"
-            android:layout_marginLeft="@dimen/doublePadding"
-            tools:text="#KudaGo" />
 
         <TextView
             android:id="@+id/tvPlaceDescription"
@@ -69,6 +43,13 @@
             android:layout_below="@+id/viewLine"
             android:layout_margin="@dimen/basePadding"
             tools:text="Body" />
+
+        <ListView
+            android:id="@+id/lvEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPlaceBody"
+            android:nestedScrollingEnabled="true" />
 
     </RelativeLayout>
 

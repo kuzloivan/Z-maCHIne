@@ -86,7 +86,7 @@ public final class KudaGoFragment extends BaseFragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final Place event = placeAdapter.getItem(position);
-            DetailPlaceActivity.start(getActivity(), event.getId());
+            DetailPlaceActivity.start(getActivity(), event.getId(), event.getTitle());
         }
     }
 }
