@@ -30,7 +30,9 @@ public class RestoreManager {
     }
 
     public List<Place> getPlaces(){
-        return new ArrayList<>(placeMap.values());
+        List<Place> places = new ArrayList<>(placeMap.values());
+        places.add(0,Place.facePlace());
+        return places;
     }
 
 

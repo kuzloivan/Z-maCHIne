@@ -110,7 +110,8 @@ public final class DetailEventActivity extends BaseActivity {
 
     private void search() {
         String hashtag = "&"+ SystemUtils.eventHashTagById(eventId);
-        VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag,"start_time",(int)(System.currentTimeMillis()-(24*60*60*1000))/1000));
+        int time = (int) ((System.currentTimeMillis()/1000)-(24*60*60));
+        VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag,"start_time",time));
         searchRequest.executeWithListener(searchPhotoRequestListener);
     }
 
@@ -137,7 +138,7 @@ public final class DetailEventActivity extends BaseActivity {
         @Override
         public void onError(VKError error) {
             super.onError(error);
-            Log.d("upload", error.apiError.errorMessage);
+            Log.d("upload", "((((");
         }
     };
 
