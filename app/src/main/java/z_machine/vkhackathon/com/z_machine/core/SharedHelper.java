@@ -10,7 +10,7 @@ import com.vk.sdk.VKAccessToken;
  */
 public class SharedHelper {
 
-    private static final String VK_ACCESS_TOKEN = "vk_access_token";
+    private static final String VK_TOKEN = "vk_token";
     private static final String USER_ID = "user_id";
     private static final String ALBUM_ID = "album_id";
     private SharedPreferences sharedPreferences;
@@ -23,17 +23,15 @@ public class SharedHelper {
     }
 
     public void saveVkToken(VKAccessToken vkAccessToken) {
-        vkAccessToken.saveTokenToSharedPreferences(context, VK_ACCESS_TOKEN);
+        vkAccessToken.saveTokenToSharedPreferences(context, VK_TOKEN);
     }
 
-    public VKAccessToken getVkAToken() {
-        return VKAccessToken.tokenFromSharedPreferences(context, VK_ACCESS_TOKEN);
+    public VKAccessToken getVkAccessToken(){
+        return VKAccessToken.tokenFromSharedPreferences(context,VK_TOKEN);
     }
 
-    public boolean isVkTokenExpired() {
-        VKAccessToken token = getVkAToken();
-
-        return (token==null||token.isExpired())?true:false;
+    public boolean isValidVkToken(){
+        return getVkAccessToken()!=null&&!getVkAccessToken().isExpired();
     }
 
     public int getUserId(){

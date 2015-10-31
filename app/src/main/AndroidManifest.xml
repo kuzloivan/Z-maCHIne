@@ -12,6 +12,7 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
+
     <application
         android:name=".core.ZApp"
         android:allowBackup="true"
@@ -37,15 +38,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_api_key" />
+
     </application>
 
-    <activity
-        android:name="com.vk.sdk.VKServiceActivity"
-        android:label="ServiceActivity"
-        android:theme="@style/VK.Transparent" />
-
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="@string/map_api_key" />
 
 </manifest>
