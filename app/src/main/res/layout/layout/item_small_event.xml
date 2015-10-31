@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/ivEventImage"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/event" />
+
+    <TextView
+        android:id="@+id/tvEventName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/ivEventImage"
+        android:maxLines="2"
+        android:fontFamily="sans-serif-light"
+        android:text="Some event"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvEventHashTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ivEventImage"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/ivEventImage"
+        android:singleLine="true"
+        android:fontFamily="sans-serif-light"
+        android:text="#KudaGoEvent12345"
+        android:textColor="#585757"
+        android:textSize="12sp" />
+
+</RelativeLayout>

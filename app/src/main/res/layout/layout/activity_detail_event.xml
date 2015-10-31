@@ -1,0 +1,66 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEventTitle"
+            style="@style/ZMachineWidget.TextView.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/basePadding"
+            tools:text="Title" />
+
+        <View
+            android:id="@+id/viewTitleLine"
+            style="@style/ZMachineWidget.Divider"
+            android:layout_below="@id/tvEventTitle" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pagerEvents"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/eventPagerHeight"
+            android:layout_below="@id/viewTitleLine"
+            android:layout_margin="@dimen/basePadding" />
+
+        <TextView
+            android:id="@+id/tvEventHashTag"
+            style="@style/ZMachineWidget.TextView.HashTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/pagerEvents"
+            android:layout_marginBottom="@dimen/basePadding"
+            android:layout_marginLeft="@dimen/doublePadding"
+            tools:text="#KudaGo" />
+
+        <TextView
+            android:id="@+id/tvEventDescription"
+            style="@style/ZMachineWidget.TextView.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pagerEvents"
+            android:layout_margin="@dimen/basePadding"
+            tools:text="Description"/>
+
+        <View
+            android:id="@+id/viewLine"
+            style="@style/ZMachineWidget.Divider"
+            android:layout_below="@id/tvEventDescription" />
+
+        <TextView
+            android:id="@+id/tvEventBody"
+            style="@style/ZMachineWidget.TextView.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewLine"
+            android:layout_margin="@dimen/basePadding"
+            tools:text="Body"/>
+
+    </RelativeLayout>
+
+</ScrollView>
