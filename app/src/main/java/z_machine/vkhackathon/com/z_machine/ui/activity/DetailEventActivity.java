@@ -7,7 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -126,7 +128,9 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
                     VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
                     vkApiPhotos.add(photo);
                 }
+
                 ((ImageGridAdapter) gridView.getAdapter()).setmThumbIds(vkApiPhotos);
+                setListViewHeightBasedOnChildren(gridView);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -138,6 +142,14 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
             Log.d("upload", "((((");
         }
     };
+
+    public static void setListViewHeightBasedOnChildren(GridView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = (int) (Math.ceil((float) listAdapter.getCount() / 3)*listView.getColumnWidth());
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
 
 
     @Override

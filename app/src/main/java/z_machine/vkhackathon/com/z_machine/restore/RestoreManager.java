@@ -30,7 +30,9 @@ public class RestoreManager {
     }
 
     public List<Place> getPlaces() {
-        List<Place> places = new ArrayList<>(placeMap.values());
+        placeMap.remove(Place.facePlace().getId());
+        List<Place> places = new ArrayList<>();
+        places.addAll(placeMap.values());
         places.add(0, Place.facePlace());
         return places;
     }
@@ -58,6 +60,7 @@ public class RestoreManager {
         m.setEventPhoto(image);
         m.setEventName(title);
         Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
         realm.copyToRealmOrUpdate(m);
         realm.commitTransaction();
     }

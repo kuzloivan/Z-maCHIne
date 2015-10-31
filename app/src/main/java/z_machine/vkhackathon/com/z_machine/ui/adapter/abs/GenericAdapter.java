@@ -29,6 +29,7 @@ public abstract class GenericAdapter<T, VHType extends VH.AbsVH<T>> extends Base
     }
 
     public void add(List<T> items) {
+        this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
     }

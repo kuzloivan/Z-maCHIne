@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import z_machine.vkhackathon.com.z_machine.R;
+import z_machine.vkhackathon.com.z_machine.model.MyEventRealmObject;
 import z_machine.vkhackathon.com.z_machine.model.Place;
+import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
 import z_machine.vkhackathon.com.z_machine.ui.activity.place.DetailPlaceActivity;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.MyEventAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlaceAdapter;
@@ -53,8 +55,8 @@ public final class MyEventsFragment  extends BaseFragment{
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-           // final Place event = placeAdapter.getItem(position);
-//            DetailPlaceActivity.start(getActivity(), event.getId());
+            MyEventRealmObject item = placeAdapter.getItem(position);
+            DetailEventActivity.start(getActivity(),item.getId(),item.getEventName());
         }
     }
 

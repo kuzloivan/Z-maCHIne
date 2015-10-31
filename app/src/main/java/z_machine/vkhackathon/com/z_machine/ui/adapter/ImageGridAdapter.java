@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -52,9 +53,12 @@ public class ImageGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        int columnWidth = ((GridView)parent).getColumnWidth();
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(256, 256));
+        AbsListView.LayoutParams layoutParams = new GridView.LayoutParams(columnWidth-16, columnWidth-16);
+        imageView.setLayoutParams(layoutParams);
+        imageView.setPadding(8,8,8,8);
         imageLoader.displayImage(mThumbIds.get(position).photo_604, imageView);
         return imageView;
     }
