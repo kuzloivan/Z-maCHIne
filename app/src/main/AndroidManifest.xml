@@ -39,7 +39,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.fragment.AddPhotoActivity"
+            android:name=".ui.activity.AddPhotoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.place.DetailPlaceActivity"

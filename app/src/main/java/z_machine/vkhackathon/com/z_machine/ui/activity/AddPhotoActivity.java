@@ -1,4 +1,4 @@
-package z_machine.vkhackathon.com.z_machine.ui.fragment;
+package z_machine.vkhackathon.com.z_machine.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,7 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import z_machine.vkhackathon.com.z_machine.R;
-import z_machine.vkhackathon.com.z_machine.ui.activity.BaseActivity;
 import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
 public final class AddPhotoActivity extends BaseActivity {
@@ -58,9 +57,9 @@ public final class AddPhotoActivity extends BaseActivity {
     }
 
     private ClickListener clickListener;
-    private Bitmap bitmap;
     private ImageView imageView;
     private ImageButton takeBtn;
+    private View emptyTv;
     private ImageButton pickBtn;
     private View addPanelView;
     private FloatingActionButton sendBtn;
@@ -82,6 +81,7 @@ public final class AddPhotoActivity extends BaseActivity {
         pickBtn = (ImageButton) findViewById(R.id.add_photo_pick_btn);
         sendBtn = (FloatingActionButton) findViewById(R.id.add_photo_send_btn);
         addPanelView = findViewById(R.id.add_photo_add_panel);
+        emptyTv= findViewById(R.id.add_photo_empty_tv);
         homeAsUp();
         sendBtn.setOnClickListener(clickListener);
         takeBtn.setOnClickListener(clickListener);
@@ -108,6 +108,7 @@ public final class AddPhotoActivity extends BaseActivity {
                 mCurrentPhotoPath = targetFile.getPath();
                 addPanelView.setVisibility(View.GONE);
                 sendBtn.setVisibility(View.VISIBLE);
+                emptyTv.setVisibility(View.GONE);
                 ImageLoader.getInstance().displayImage("file://" + targetFile.getAbsolutePath(), imageView);
             } else if (requestCode == REQUEST_TAKE_PHOTO) {
                 galleryAddPic();
@@ -232,6 +233,7 @@ public final class AddPhotoActivity extends BaseActivity {
             Toast.makeText(AddPhotoActivity.this, "Successfully completed", Toast.LENGTH_SHORT).show();
             addPanelView.setVisibility(View.VISIBLE);
             sendBtn.setVisibility(View.GONE);
+            emptyTv.setVisibility(View.VISIBLE);
             imageView.setImageBitmap(null);
         }
 

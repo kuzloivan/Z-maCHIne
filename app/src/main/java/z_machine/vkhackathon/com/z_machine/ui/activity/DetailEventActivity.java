@@ -33,7 +33,6 @@ import z_machine.vkhackathon.com.z_machine.core.bus.event.ErrorEvent;
 import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.ImageGridAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
-import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
 public final class DetailEventActivity extends BaseActivity implements View.OnClickListener {
