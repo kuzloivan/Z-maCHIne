@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
+import me.relex.circleindicator.CircleIndicator;
 import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.core.bus.BusProvider;
 import z_machine.vkhackathon.com.z_machine.core.bus.event.BaseEvent;
@@ -34,6 +35,7 @@ public final class DetailPlaceActivity extends BaseActivity {
     }
 
     private int eventId;
+    private CircleIndicator circleIndicator;
     private ViewPager viewPager;
     private TextView tvTitle;
     private TextView tvDescription;
@@ -45,6 +47,7 @@ public final class DetailPlaceActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_place);
         viewPager = (ViewPager) findViewById(R.id.pagerPlaces);
+        circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         tvDescription = (TextView) findViewById(R.id.tvPlaceDescription);
         tvBody = (TextView) findViewById(R.id.tvPlaceBody);
         tvTitle = (TextView) findViewById(R.id.tvPlaceTitle);
@@ -77,6 +80,7 @@ public final class DetailPlaceActivity extends BaseActivity {
             tvDescription.setText(placeBodyResponse.getAddress());
             viewPager.setAdapter(new PlacePagerAdapter(placeBodyResponse.getImages(),
                     getApplicationContext()));
+            circleIndicator.setViewPager(viewPager);
         }
     }
 
