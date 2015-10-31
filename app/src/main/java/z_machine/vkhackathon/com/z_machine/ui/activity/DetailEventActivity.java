@@ -119,11 +119,15 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
         public void onComplete(VKResponse response) {
             super.onComplete(response);
             Log.d("search", response.responseString);
-            JSONArray jsonArray = null;
+            JSONArray jsonArray;
             List<VKApiPhoto> vkApiPhotos = new ArrayList<>();
             try {
                 jsonArray = response.json.getJSONObject("response").getJSONArray("items");
                 int length = jsonArray.length();
+                if (length > 0) {
+                    findViewById(R.id.tvEventText).setVisibility(View.VISIBLE);
+                    findViewById(R.id.viewBelowLine).setVisibility(View.VISIBLE);
+                }
                 for (int i = 0; i < length; i++) {
                     VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
                     vkApiPhotos.add(photo);
@@ -146,7 +150,7 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
     public static void setListViewHeightBasedOnChildren(GridView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = (int) (Math.ceil((float) listAdapter.getCount() / 3)*listView.getColumnWidth());
+        params.height = (int) (Math.ceil((float) listAdapter.getCount() / 3) * listView.getColumnWidth());
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
