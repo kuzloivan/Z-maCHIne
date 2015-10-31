@@ -26,7 +26,7 @@ public class MyEventAdapter extends ParallaxAdapter<MyEventRealmObject, MyEventA
     public MyEventAdapter(Context context) {
         super(context, R.layout.item_event);
         imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
+//        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
     }
 
     @Override

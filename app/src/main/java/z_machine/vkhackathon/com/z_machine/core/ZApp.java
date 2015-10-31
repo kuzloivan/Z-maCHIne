@@ -4,6 +4,11 @@ import android.app.Application;
 import android.graphics.drawable.Drawable;
 
 import com.bettervectordrawable.VectorDrawableCompat;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.vk.sdk.VKSdk;
 
 import z_machine.vkhackathon.com.z_machine.R;
@@ -26,6 +31,22 @@ public final class ZApp extends Application implements AppBridge {
         sharedHelper = new SharedHelper(this);
         restoreManager = new RestoreManager(this);
         initVector();
+
+
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true).cacheOnDisk(true).build();
+        ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(this);
+        builder.defaultDisplayImageOptions(defaultOptions);
+        builder.diskCache(new UnlimitedDiskCache(getCacheDir())); // default
+        builder.diskCacheSize(50 * 1024 * 1024);
+        builder.diskCacheFileCount(150);
+        builder.diskCacheFileNameGenerator(new HashCodeFileNameGenerator());
+        // builder.memoryCache(new LruMemoryCache(2 * 1024 * 1024));
+        builder.writeDebugLogs();
+      //  builder.imageDownloader(new CustomImageDownLoader(context,token));
+        ImageLoader.getInstance().init(builder.build());
+
     }
 
     private void initVector(){

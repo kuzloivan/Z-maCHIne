@@ -20,7 +20,7 @@ public final class PlaceAdapter extends ParallaxAdapter<Place, PlaceAdapter.View
     public PlaceAdapter(Context context) {
         super(context, R.layout.item_place);
         imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
+//        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
     }
 
     @Override

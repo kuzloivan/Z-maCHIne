@@ -10,14 +10,15 @@ public final class ImageUtils {
 
     public static ImageLoaderConfiguration createImageLoaderConfiguration(Context context) {
         return new ImageLoaderConfiguration.Builder(context.getApplicationContext())
-                .denyCacheImageMultipleSizesInMemory()
+                //.denyCacheImageMultipleSizesInMemory()
                 .defaultDisplayImageOptions(getDefaultOptions())
+               // .memoryCacheSize(2*1024)
                 .build();
     }
 
     public static DisplayImageOptions getDefaultOptions() {
         return new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
+                //.cacheInMemory(true)
                 .cacheOnDisk(true)
                 .resetViewBeforeLoading(true)
                 .bitmapConfig(Bitmap.Config.ARGB_8888)
