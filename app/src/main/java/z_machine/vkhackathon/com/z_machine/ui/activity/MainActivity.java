@@ -10,6 +10,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoFragment;
@@ -18,6 +22,9 @@ import z_machine.vkhackathon.com.z_machine.ui.fragment.PlaceLocationFragment;
 import z_machine.vkhackathon.com.z_machine.utils.FragmentLauncher;
 
 public final class MainActivity extends BaseActivity {
+
+    private TextView userTv;
+    private ImageView userPhotoIv;
 
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, MainActivity.class);
