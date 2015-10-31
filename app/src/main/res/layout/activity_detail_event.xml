@@ -36,12 +36,28 @@
                 android:layout_margin="@dimen/basePadding"
                 tools:text="Body" />
 
+            <TextView
+                android:id="@+id/tvEventText"
+                style="@style/ZMachineWidget.TextView.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvEventsBody"
+                android:layout_marginBottom="@dimen/basePadding"
+                android:layout_marginLeft="@dimen/basePadding"
+                android:layout_marginRight="@dimen/basePadding"
+                android:text="Фотографии из ВКонтакте" />
+
+            <View
+                android:id="@+id/viewBelowLine"
+                style="@style/ZMachineWidget.Divider"
+                android:layout_below="@id/tvEventText" />
+
             <GridView
                 android:id="@+id/photoEventGrid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/tvEventsBody"
-                android:numColumns="3"></GridView>
+                android:layout_below="@id/viewBelowLine"
+                android:numColumns="3" />
 
         </RelativeLayout>
 

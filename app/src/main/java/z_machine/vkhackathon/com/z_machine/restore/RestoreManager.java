@@ -20,18 +20,18 @@ public class RestoreManager {
 
     private Context context;
 
-    private Map<Integer,Place> placeMap = new HashMap<>();
+    private Map<Integer, Place> placeMap = new HashMap<>();
 
 
-    public void addPlaces(List<Place> places){
-        for(Place place: places){
-            placeMap.put(place.getId(),place);
+    public void addPlaces(List<Place> places) {
+        for (Place place : places) {
+            placeMap.put(place.getId(), place);
         }
     }
 
-    public List<Place> getPlaces(){
+    public List<Place> getPlaces() {
         List<Place> places = new ArrayList<>(placeMap.values());
-        places.add(0,Place.facePlace());
+        places.add(0, Place.facePlace());
         return places;
     }
 
@@ -62,8 +62,8 @@ public class RestoreManager {
         realm.commitTransaction();
     }
 
-    public List<MyEventRealmObject> getMyEvents(){
-        return Realm.getInstance(context).allObjectsSorted(MyEventRealmObject.class,"time",false);
+    public List<MyEventRealmObject> getMyEvents() {
+        return Realm.getInstance(context).allObjectsSorted(MyEventRealmObject.class, "time", false);
     }
 
 

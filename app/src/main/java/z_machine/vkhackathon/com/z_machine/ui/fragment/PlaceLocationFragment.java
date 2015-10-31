@@ -34,7 +34,7 @@ import z_machine.vkhackathon.com.z_machine.ui.activity.place.DetailPlaceActivity
 /**
  * Created by Kuzlo on 31.10.2015.
  */
-public class PlaceLocationFragment extends SupportMapFragment implements OnMapReadyCallback {
+public final class PlaceLocationFragment extends SupportMapFragment implements OnMapReadyCallback {
 
     private static final int GET_PLACE_LIST = 45;
     private AppBridge appBridge;

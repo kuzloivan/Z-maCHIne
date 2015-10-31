@@ -18,7 +18,7 @@ import z_machine.vkhackathon.com.z_machine.ui.customview.ParallaxListView;
 /**
  * Created by Kuzlo on 31.10.2015.
  */
-public class MyEventsFragment  extends BaseFragment{
+public final class MyEventsFragment  extends BaseFragment{
     private MyEventAdapter placeAdapter;
 
     @Override

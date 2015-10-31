@@ -8,10 +8,8 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.otto.Subscribe;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
@@ -31,15 +29,12 @@ import z_machine.vkhackathon.com.z_machine.core.bus.BusProvider;
 import z_machine.vkhackathon.com.z_machine.core.bus.event.BaseEvent;
 import z_machine.vkhackathon.com.z_machine.core.bus.event.ErrorEvent;
 import z_machine.vkhackathon.com.z_machine.model.Event;
-import z_machine.vkhackathon.com.z_machine.model.Place;
-import z_machine.vkhackathon.com.z_machine.network.rest.response.GetEvents;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.ImageGridAdapter;
-import z_machine.vkhackathon.com.z_machine.ui.adapter.event.EventByPlaceAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
-public final class DetailEventActivity extends BaseActivity implements View.OnClickListener{
+public final class DetailEventActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int GET_EVENT = 7;
 
@@ -71,13 +66,11 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
         String title = bundle.getString(TITLE_KEY);
         homeAsUp();
         setTitle(title);
-
         viewPager = (ViewPager) findViewById(R.id.pagerEvents);
         circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         tvBody = (TextView) findViewById(R.id.tvEventsBody);
         gridView = (GridView) findViewById(R.id.photoEventGrid);
         gridView.setAdapter(new ImageGridAdapter(this));
-
         findViewById(R.id.activity_detail_photo_btn).setOnClickListener(this);
     }
 
@@ -113,9 +106,9 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
     }
 
     private void search() {
-        String hashtag = "&"+ SystemUtils.eventHashTagByTitle(eventBody.getTitle());
-        int time = (int) ((System.currentTimeMillis()/1000)-(24*60*60));
-        VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag,"start_time",time));
+        final String hashtag = "&" + SystemUtils.eventHashTagByTitle(eventBody.getTitle());
+        final int time = (int) ((System.currentTimeMillis() / 1000) - (24 * 60 * 60));
+        final VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag, "start_time", time));
         searchRequest.executeWithListener(searchPhotoRequestListener);
     }
 
@@ -133,7 +126,7 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
                     VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
                     vkApiPhotos.add(photo);
                 }
-                ((ImageGridAdapter)gridView.getAdapter()).setmThumbIds(vkApiPhotos);
+                ((ImageGridAdapter) gridView.getAdapter()).setmThumbIds(vkApiPhotos);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -149,9 +142,9 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.activity_detail_photo_btn:
-                AddPhotoActivity.start(DetailEventActivity.this,eventId,eventBody.getImages().get(0).getImage(), eventBody.getTitle());
+                AddPhotoActivity.start(DetailEventActivity.this, eventId, eventBody.getImages().get(0).getImage(), eventBody.getTitle());
                 break;
         }
     }

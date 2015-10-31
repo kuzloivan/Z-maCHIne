@@ -18,7 +18,6 @@ import java.util.List;
  */
 public class ImageGridAdapter extends BaseAdapter {
 
-    // Keep all Images in array
     List<VKApiPhoto> mThumbIds;
     private Context context;
     private ImageLoader imageLoader;

@@ -88,7 +88,8 @@ public final class KudaGoFragment extends BaseFragment {
         super.onStart();
         BusProvider.getInstance().register(this);
         if (placeAdapter.isEmpty()) {
-            appBridge.getNetBridge().getPlaces(GET_PLACES, PlaceLocationFragment.loc.latitude, PlaceLocationFragment.loc.longitude);
+            appBridge.getNetBridge().getPlaces(GET_PLACES, PlaceLocationFragment.loc.latitude,
+                    PlaceLocationFragment.loc.longitude);
         }
     }
 
