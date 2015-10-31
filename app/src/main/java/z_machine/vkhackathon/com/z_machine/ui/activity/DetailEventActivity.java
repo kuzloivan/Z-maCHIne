@@ -113,7 +113,7 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
     }
 
     private void search() {
-        String hashtag = "&"+ SystemUtils.eventHashTagById(eventId);
+        String hashtag = "&"+ SystemUtils.eventHashTagByTitle(eventBody.getTitle());
         int time = (int) ((System.currentTimeMillis()/1000)-(24*60*60));
         VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag,"start_time",time));
         searchRequest.executeWithListener(searchPhotoRequestListener);
@@ -151,7 +151,7 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.activity_detail_photo_btn:
-                AddPhotoActivity.start(DetailEventActivity.this, eventId,eventBody.getTitle(),eventBody.getImages().get(0).getImage());
+                AddPhotoActivity.start(DetailEventActivity.this,eventId,eventBody.getImages().get(0).getImage(), eventBody.getTitle());
                 break;
         }
     }

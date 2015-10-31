@@ -77,10 +77,11 @@ public class Transliterator {
         charMap.put('э', "e");
         charMap.put('ю', "u");
         charMap.put('я', "ya");
+        charMap.put(' ',"_");
 
     }
 
-    public String transliterate(String string) {
+    public static String transliterate(String string) {
         StringBuilder transliteratedString = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
             Character ch = string.charAt(i);

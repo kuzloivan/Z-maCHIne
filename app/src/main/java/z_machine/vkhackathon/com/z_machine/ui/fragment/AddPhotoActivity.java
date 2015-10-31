@@ -186,7 +186,7 @@ public final class AddPhotoActivity extends BaseActivity {
                             int length = jsonArray.length();
                             for (int i = 0; i < length; i++) {
                                 VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
-                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", SystemUtils.eventHashTagById(eventId)));
+                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", SystemUtils.eventHashTagByTitle(eventTitle)));
                                 photoRequest.executeWithListener(editPhotoRequestListener);
                             }
                         } catch (JSONException e) {

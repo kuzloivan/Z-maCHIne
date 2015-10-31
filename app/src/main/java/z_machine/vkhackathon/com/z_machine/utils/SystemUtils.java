@@ -13,5 +13,9 @@ public final class SystemUtils {
         return HASH_TAG_EVENT_PATTERN + eventId;
     }
 
+    public static String eventHashTagByTitle(String title) {
+        return HASH_TAG_EVENT_PATTERN + Transliterator.transliterate(title);
+    }
+
 
 }

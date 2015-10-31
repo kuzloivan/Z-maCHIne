@@ -43,7 +43,7 @@ public class RestoreManager {
     public void saveEvent(Event event) {
         MyEventRealmObject m = new MyEventRealmObject();
         m.setId(event.getId());
-        m.setEventHashTag(SystemUtils.eventHashTagById(event.getId()));
+        m.setEventHashTag(SystemUtils.eventHashTagByTitle(event.getTitle()));
         m.setEventPhoto(event.getImages().get(0).getImage());
         m.setEventName(event.getTitle());
         Realm realm = Realm.getInstance(context);
@@ -54,7 +54,7 @@ public class RestoreManager {
     public void saveEvent(int id, String image, String title) {
         MyEventRealmObject m = new MyEventRealmObject();
         m.setId(id);
-        m.setEventHashTag(SystemUtils.eventHashTagById(id));
+        m.setEventHashTag(SystemUtils.eventHashTagByTitle(title));
         m.setEventPhoto(image);
         m.setEventName(title);
         Realm realm = Realm.getInstance(context);
