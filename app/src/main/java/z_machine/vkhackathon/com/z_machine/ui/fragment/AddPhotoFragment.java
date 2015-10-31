@@ -3,9 +3,7 @@ package z_machine.vkhackathon.com.z_machine.ui.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,14 +26,11 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiPhoto;
-import com.vk.sdk.api.photo.VKImageParameters;
-import com.vk.sdk.api.photo.VKUploadImage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,8 +41,6 @@ import java.util.Date;
 import java.util.List;
 
 import z_machine.vkhackathon.com.z_machine.R;
-import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
-import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
 public final class AddPhotoFragment extends BaseFragment {
 
@@ -261,7 +254,6 @@ public final class AddPhotoFragment extends BaseFragment {
                 }
 
                 ImageLoader imageLoader = ImageLoader.getInstance();
-//               imageLoader.init(ImageUtils.createImageLoaderConfiguration(getActivity()));
                 imageLoader.displayImage(vkApiPhotos.get(0).photo_807, imageView);
             } catch (JSONException e) {
                 e.printStackTrace();
