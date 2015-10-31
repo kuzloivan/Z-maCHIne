@@ -27,11 +27,11 @@ public class SplashActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        if(appBridge.getSharedHelper().isVkTokenExpired()){
+        if(appBridge.getSharedHelper().isValidVkToken()){
             MainActivity.start(this);
         }else {
-          //  VKSdk.login(this,"photos");
-            MainActivity.start(this);
+            VKSdk.login(this,"photos");
+//            MainActivity.start(this);
         }
     }
 
