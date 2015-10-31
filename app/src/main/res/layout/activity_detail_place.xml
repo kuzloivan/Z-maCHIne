@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -43,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pagerPlaces"
                 android:layout_margin="@dimen/basePadding"
-                android:text="Описание" />
+                android:text="Описание"
+                />
 
             <View
                 android:id="@+id/viewLine"
@@ -58,12 +60,6 @@
                 android:layout_below="@+id/viewLine"
                 android:layout_margin="@dimen/basePadding"
                 tools:text="Body" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvPlaceShortDescription"
@@ -91,15 +87,21 @@
                 style="@style/ZMachineWidget.Divider"
                 android:layout_below="@id/tvEventText"
                 android:visibility="invisible" />
-
-            <ListView
-                android:id="@+id/lvEvents"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/viewBelowLine"
-                android:layout_marginLeft="@dimen/basePadding"
-                android:layout_marginRight="@dimen/basePadding"
-                android:nestedScrollingEnabled="true" />
+                android:layout_below="@id/viewBelowLine">
+                <ListView
+                    android:id="@+id/lvEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="@dimen/basePadding"
+                    android:layout_marginRight="@dimen/basePadding"
+                    android:nestedScrollingEnabled="true"
+                    android:focusable="false"/>
+            </LinearLayout>
+
+
 
         </RelativeLayout>
 

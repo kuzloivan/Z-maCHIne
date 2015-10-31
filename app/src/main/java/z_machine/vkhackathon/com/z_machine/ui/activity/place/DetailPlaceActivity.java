@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -37,6 +38,8 @@ public final class DetailPlaceActivity extends BaseActivity{
 
     private static final String ID_KEY = DetailPlaceActivity.class.getSimpleName() + "id";
     private static final String TITLE_KEY = DetailPlaceActivity.class.getSimpleName() + "title";
+    private ListView lvEvents;
+    private ScrollView scrollView;
 
     public static void start(Activity activity, int placeId, String title) {
         final Bundle bundle = new Bundle();
@@ -68,7 +71,7 @@ public final class DetailPlaceActivity extends BaseActivity{
         circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
         tvDescription = (TextView) findViewById(R.id.tvPlaceDescription);
         tvBody = (TextView) findViewById(R.id.tvPlaceBody);
-        final ListView lvEvents = (ListView) findViewById(R.id.lvEvents);
+        lvEvents = (ListView) findViewById(R.id.lvEvents);
         lvEvents.setAdapter(eventByPlaceAdapter);
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,7 +80,7 @@ public final class DetailPlaceActivity extends BaseActivity{
                 DetailEventActivity.start(DetailPlaceActivity.this, item.getId(), item.getTitle());
             }
         });
-        setListViewHeightBasedOnChildren(lvEvents);
+        scrollView = (ScrollView)findViewById(R.id.scrollView);
     }
 
     @Override
@@ -111,7 +114,11 @@ public final class DetailPlaceActivity extends BaseActivity{
                 findViewById(R.id.tvEventText).setVisibility(View.VISIBLE);
                 findViewById(R.id.viewBelowLine).setVisibility(View.VISIBLE);
             }
+
+            int verticalScrollbarPosition = (int) scrollView.getX();
             eventByPlaceAdapter.add(eventsBodyResponse.getEvents());
+            setListViewHeightBasedOnChildren(lvEvents);
+            scrollView.scrollTo(verticalScrollbarPosition,0);
         }
     }
 
