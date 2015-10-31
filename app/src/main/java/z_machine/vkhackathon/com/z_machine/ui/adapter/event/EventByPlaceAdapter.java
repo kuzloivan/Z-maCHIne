@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.w3c.dom.Text;
-
 import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.GenericAdapter;
@@ -41,7 +39,7 @@ public class EventByPlaceAdapter extends GenericAdapter<Event, EventByPlaceAdapt
         public ViewHolder(View view, ImageLoader imageLoader) {
             super(view);
             this.imageLoader = imageLoader;
-            ivEventImage = (ImageView) view.findViewById(R.id.ivEventBackground);
+            ivEventImage = (ImageView) view.findViewById(R.id.ivEventImage);
             tvEventName = (TextView) view.findViewById(R.id.tvEventName);
             tvEventHashTag = (TextView) view.findViewById(R.id.tvEventHashTag);
         }

@@ -1,29 +1,51 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/add_photo_pick_btn"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pick photo" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/add_photo_take_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Photo" />
+        <LinearLayout
+            android:id="@+id/add_photo_add_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
-    <Button
+            <ImageButton
+                android:id="@+id/add_photo_pick_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/basePadding"
+                android:src="@drawable/gallery" />
+
+            <ImageButton
+                android:id="@+id/add_photo_take_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/basePadding"
+                android:scaleType="centerInside"
+                android:src="@drawable/camera3" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_photo_send_btn"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send to Vk Photo" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_send_black_24dp" />
 
-    <ImageView
-        android:id="@+id/result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

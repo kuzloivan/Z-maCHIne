@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <ImageView
+        android:id="@+id/ivEventBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/event" />
+
+    <TextView
+        android:id="@+id/tvEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivEventBackground"
+        android:layout_margin="8dp"
+        android:background="#CC000000"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:singleLine="true"
+        android:text="Хакатон ВК"
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif-light"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvEventHashTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:singleLine="true"
+        android:text="#Hackaton"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#585757"
+        android:textSize="16sp" />
+
+</RelativeLayout>

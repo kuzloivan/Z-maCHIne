@@ -15,6 +15,7 @@ import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.GeolocationFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.KudaGoFragment;
+import z_machine.vkhackathon.com.z_machine.ui.fragment.PlaceLocationFragment;
 import z_machine.vkhackathon.com.z_machine.utils.FragmentLauncher;
 
 public final class MainActivity extends BaseActivity {
@@ -78,7 +79,7 @@ public final class MainActivity extends BaseActivity {
                     fragment = KudaGoFragment.getInstance();
                     break;
                 case R.id.nav_geolocation:
-                    fragment = GeolocationFragment.getInstance();
+                    fragment = PlaceLocationFragment.getInstance();
                     break;
                 default:
                     throw new IllegalArgumentException();

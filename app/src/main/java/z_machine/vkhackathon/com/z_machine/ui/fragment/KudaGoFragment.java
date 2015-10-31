@@ -57,7 +57,7 @@ public final class KudaGoFragment extends BaseFragment {
         super.onStart();
         BusProvider.getInstance().register(this);
         if (placeAdapter.isEmpty()) {
-            appBridge.getNetBridge().getPlaces(GET_PLACES);
+            appBridge.getNetBridge().getPlaces(GET_PLACES, 59.91979700000001, 30.334911999999996);
         }
     }
 
@@ -71,6 +71,7 @@ public final class KudaGoFragment extends BaseFragment {
     public void networkEventListener(BaseEvent event) {
         if (event.getRequestId() == GET_PLACES) {
             final GetPlaces placesResponseBody = (GetPlaces) event.getBody();
+            placesResponseBody.getPlaces().add(0,Place.facePlace());
             placeAdapter.add(placesResponseBody.getPlaces());
         }
     }

@@ -6,7 +6,7 @@ public interface NetBridge {
 
     void getEvent(int requestId, int eventId);
 
-    void getPlaces(int requestId);
+    void getPlaces(int requestId, double latitude, double longitude);
 
     void getPlace(int requestId, int placeId);
 
