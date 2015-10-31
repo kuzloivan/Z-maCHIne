@@ -3,13 +3,25 @@ package z_machine.vkhackathon.com.z_machine.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+
+import com.squareup.otto.Subscribe;
 
 import z_machine.vkhackathon.com.z_machine.R;
+import z_machine.vkhackathon.com.z_machine.core.bus.BusProvider;
+import z_machine.vkhackathon.com.z_machine.core.bus.event.BaseEvent;
+import z_machine.vkhackathon.com.z_machine.core.bus.event.ErrorEvent;
+import z_machine.vkhackathon.com.z_machine.model.Place;
+import z_machine.vkhackathon.com.z_machine.network.rest.response.GetPlaces;
+import z_machine.vkhackathon.com.z_machine.ui.activity.place.DetailPlaceActivity;
+import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlaceAdapter;
+import z_machine.vkhackathon.com.z_machine.ui.customview.ParallaxListView;
 
-public class KudaGoFragment extends BaseFragment {
+public final class KudaGoFragment extends BaseFragment {
 
     private static final int GET_PLACES = 1;
 
@@ -17,9 +29,9 @@ public class KudaGoFragment extends BaseFragment {
         return new KudaGoFragment();
     }
 
-   // private PlaceAdapter placeAdapter;
+    private PlaceAdapter placeAdapter;
 
-   /* @Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         placeAdapter = new PlaceAdapter(getContext());
@@ -45,7 +57,7 @@ public class KudaGoFragment extends BaseFragment {
         super.onStart();
         BusProvider.getInstance().register(this);
         if (placeAdapter.isEmpty()) {
-            applicationBridge.getNetBridge().getPlaces(GET_PLACES);
+            appBridge.getNetBridge().getPlaces(GET_PLACES);
         }
     }
 
@@ -58,7 +70,7 @@ public class KudaGoFragment extends BaseFragment {
     @Subscribe
     public void networkEventListener(BaseEvent event) {
         if (event.getRequestId() == GET_PLACES) {
-            GetPlaces placesResponseBody = (GetPlaces) event.getBody();
+            final GetPlaces placesResponseBody = (GetPlaces) event.getBody();
             placeAdapter.add(placesResponseBody.getPlaces());
         }
     }
@@ -76,5 +88,5 @@ public class KudaGoFragment extends BaseFragment {
             final Place event = placeAdapter.getItem(position);
             DetailPlaceActivity.start(getActivity(), event.getId());
         }
-    }*/
+    }
 }

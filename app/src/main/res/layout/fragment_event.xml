@@ -1,4 +1,4 @@
-<com.hackathon.z_machine.ui.customview.ParallaxListView xmlns:android="http://schemas.android.com/apk/res/android"
+<z_machine.vkhackathon.com.z_machine.ui.customview.ParallaxListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lvElements"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
