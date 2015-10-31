@@ -98,10 +98,12 @@ public final class AddPhotoFragment extends BaseFragment {
                     if (bitmap != null) {
                         bitmap.recycle();
                     }
-                    InputStream stream = getActivity().getContentResolver().openInputStream(
+                    /*InputStream stream = getActivity().getContentResolver().openInputStream(
                             data.getData());
                     bitmap = BitmapFactory.decodeStream(stream);
-                    stream.close();
+                    stream.close();*/
+                    bitmap= MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), data.getData());
+
                     imageView.setImageBitmap(bitmap);
                     sendBtn.setVisibility(View.VISIBLE);
                     addPanelView.setVisibility(View.GONE);
