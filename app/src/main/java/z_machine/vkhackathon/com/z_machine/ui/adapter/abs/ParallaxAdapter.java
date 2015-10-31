@@ -5,7 +5,7 @@ import android.graphics.Matrix;
 import android.view.View;
 import android.widget.ImageView;
 
-public abstract class ParallaxAdapter<T, VHType extends ViewHolder.VH<T>>
+public abstract class ParallaxAdapter<T, VHType extends VH.AbsVH<T>>
         extends GenericAdapter<T, VHType> {
 
     private static final float DEFAULT_UP_VALUE = 0.9f;

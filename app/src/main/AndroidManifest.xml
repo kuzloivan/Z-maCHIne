@@ -23,12 +23,6 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name=".ui.activity.MainActivity"
-
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity
             android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -37,6 +31,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".ui.activity.place.DetailPlaceActivity" />
 
         <activity
             android:name="com.vk.sdk.VKServiceActivity"
@@ -48,6 +48,5 @@
             android:value="@string/map_api_key" />
 
     </application>
-
 
 </manifest>
