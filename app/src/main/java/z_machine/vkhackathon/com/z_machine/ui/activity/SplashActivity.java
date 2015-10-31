@@ -97,6 +97,7 @@ public class SplashActivity extends BaseActivity {
                 for (int i = 0; i < length; i++) {
                     VKApiPhotoAlbum photoAlbum = new VKApiPhotoAlbum(jsonArray.getJSONObject(i));
                     if(photoAlbum.title.equals(getString(R.string.app_name))){
+                        appBridge.getSharedHelper().setAlbumId(photoAlbum.id);
                         hasAlbum=true;
                         break;
                     }
