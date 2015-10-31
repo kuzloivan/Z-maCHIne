@@ -17,6 +17,6 @@
     <dimen name="smallText">12sp</dimen>
     <dimen name="bigText">22sp</dimen>
     <dimen name="indicatorHeight">40dp</dimen>
-    <dimen name="imageItemPadding">32dp</dimen>
+    <dimen name="imageItemPadding">30dp</dimen>
 
 </resources>

@@ -13,7 +13,6 @@ import android.view.MenuItem;
 
 import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoFragment;
-import z_machine.vkhackathon.com.z_machine.ui.fragment.GeolocationFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.KudaGoFragment;
 import z_machine.vkhackathon.com.z_machine.ui.fragment.PlaceLocationFragment;
 import z_machine.vkhackathon.com.z_machine.utils.FragmentLauncher;

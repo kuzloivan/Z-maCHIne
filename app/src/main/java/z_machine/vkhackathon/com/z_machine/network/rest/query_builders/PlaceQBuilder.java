@@ -65,11 +65,12 @@ public class PlaceQBuilder {
         DESCRIPTION("description"),
         TITLE("title"),
         SHORT_TITLE("short_title"),
-        COORDS("coords");
+        COORDS("coords"),
+        ADDRESS("address");
 
         private String param;
 
-        private OPTIONS(final String param) {
+        OPTIONS(final String param) {
             this.param = param;
         }
 

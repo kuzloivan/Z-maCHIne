@@ -23,17 +23,28 @@
 
         <TextView
             android:id="@+id/tvPlaceDescription"
-            style="@style/ZMachineWidget.TextView.Description"
+            style="@style/ZMachineWidget.TextView.HashTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@id/pagerPlaces"
+            android:layout_margin="@dimen/basePadding"
+            android:maxLines="2"
+            tools:text="Description" />
+
+        <TextView
+            android:id="@+id/tvDescriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/ZMachineWidget.TextView.Description"
             android:layout_below="@+id/pagerPlaces"
             android:layout_margin="@dimen/basePadding"
-            tools:text="Description" />
+            android:text="Описание"/>
 
         <View
             android:id="@+id/viewLine"
             style="@style/ZMachineWidget.Divider"
-            android:layout_below="@id/tvPlaceDescription" />
+            android:layout_below="@id/tvDescriptionText" />
 
         <TextView
             android:id="@+id/tvPlaceBody"
@@ -44,13 +55,40 @@
             android:layout_margin="@dimen/basePadding"
             tools:text="Body" />
 
-        <ListView
-            android:id="@+id/lvEvents"
-            android:layout_marginLeft="@dimen/basePadding"
-            android:layout_marginRight="@dimen/basePadding"
+        <TextView
+            android:id="@+id/tvPlaceShortDescription"
+            style="@style/ZMachineWidget.TextView.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/viewLine"
+            android:layout_margin="@dimen/basePadding"
+            tools:text="Body" />
+
+        <TextView
+            android:id="@+id/tvEventText"
+            android:text="События"
+            android:visibility="invisible"
             android:layout_below="@id/tvPlaceBody"
+            android:layout_marginLeft="@dimen/basePadding"
+            android:layout_marginBottom="@dimen/basePadding"
+            android:layout_marginRight="@dimen/basePadding"
+            style="@style/ZMachineWidget.TextView.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/viewBelowLine"
+            style="@style/ZMachineWidget.Divider"
+            android:layout_below="@id/tvEventText"
+            android:visibility="invisible"/>
+
+        <ListView
+            android:id="@+id/lvEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewBelowLine"
+            android:layout_marginLeft="@dimen/basePadding"
+            android:layout_marginRight="@dimen/basePadding"
             android:nestedScrollingEnabled="true" />
 
     </RelativeLayout>

@@ -1,9 +1,6 @@
 package z_machine.vkhackathon.com.z_machine.network;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 import z_machine.vkhackathon.com.z_machine.core.appinterface.NetBridge;
 import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.model.Place;
@@ -36,9 +33,9 @@ public class NetManager implements NetBridge {
     public void getPlaces(int requestId, double latitude, double longitude) {
         PlaceQBuilder builder = new PlaceQBuilder();
         builder.setLocation("spb")
-                .setLocationPosition(latitude,longitude)
+                .setLocationPosition(latitude, longitude)
                 .setPageSize(100)
-                .setRadius(1000)
+                .setRadius(500)
                 .include(PlaceQBuilder.OPTIONS.COMMENTS_COUNT,
                         PlaceQBuilder.OPTIONS.COORDS,
                         PlaceQBuilder.OPTIONS.DESCRIPTION,
@@ -47,8 +44,8 @@ public class NetManager implements NetBridge {
                         PlaceQBuilder.OPTIONS.IMAGES,
                         PlaceQBuilder.OPTIONS.TITLE,
                         PlaceQBuilder.OPTIONS.SHORT_TITLE,
-                        PlaceQBuilder.OPTIONS.FAVORITES_COUNT);
-
+                        PlaceQBuilder.OPTIONS.FAVORITES_COUNT,
+                        PlaceQBuilder.OPTIONS.ADDRESS);
         api.getPaces(builder.build()).enqueue(new MainCallback<GetPlaces>(requestId));
     }
 

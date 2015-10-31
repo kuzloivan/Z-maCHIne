@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -105,6 +106,10 @@ public final class DetailPlaceActivity extends BaseActivity {
         }
         if (event.getRequestId() == GET_EVENTS) {
             final GetEvents eventsBodyResponse = (GetEvents) event.getBody();
+            if(eventsBodyResponse.getCount() != 0) {
+                findViewById(R.id.tvEventText).setVisibility(View.VISIBLE);
+                findViewById(R.id.viewBelowLine).setVisibility(View.VISIBLE);
+            }
             eventByPlaceAdapter.add(eventsBodyResponse.getEvents());
         }
     }
