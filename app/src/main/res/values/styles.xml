@@ -4,6 +4,12 @@
 
     <style name="ZMachineWidget.TextView" parent="android:Widget.TextView"/>
 
+    <style name="ZMachineWidget.TextView.Address">
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/addressText</item>
+    </style>
+
     <style name="ZMachineWidget.TextView.Title">
         <item name="android:textSize">@dimen/bigText</item>
         <item name="android:gravity">center</item>
@@ -29,6 +35,11 @@
         <item name="android:textSize">@dimen/hashTagText</item>
         <item name="android:textColor">@color/baseText</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ZMachineWidget.TextView.HashTag.Small">
+        <item name="android:textSize">@dimen/smallText</item>
     </style>
 
     <style name="ZMachineWidget.Divider">
@@ -37,6 +48,21 @@
         <item name="android:layout_marginRight">@dimen/basePadding</item>
         <item name="android:layout_height">@dimen/dividerHeight</item>
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/bigText</item>
+        <item name="android:textColor">@color/baseText</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:textColor">@color/baseText</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:singleLine">true</item>
     </style>
 
 </resources>

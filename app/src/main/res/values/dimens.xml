@@ -7,12 +7,16 @@
 
     <dimen name="dividerHeight">1dp</dimen>
     <dimen name="eventPagerHeight">250dp</dimen>
+    <dimen name="itemHeight">240dp</dimen>
 
     <dimen name="basePadding">8dp</dimen>
     <dimen name="doublePadding">16dp</dimen>
 
     <dimen name="hashTagText">16sp</dimen>
     <dimen name="normalText">14sp</dimen>
+    <dimen name="smallText">12sp</dimen>
     <dimen name="bigText">22sp</dimen>
+    <dimen name="indicatorHeight">40dp</dimen>
+    <dimen name="imageItemPadding">32dp</dimen>
 
 </resources>

@@ -1,6 +1,9 @@
 package z_machine.vkhackathon.com.z_machine.network;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import z_machine.vkhackathon.com.z_machine.core.appinterface.NetBridge;
 import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.model.Place;
@@ -52,5 +55,10 @@ public class NetManager implements NetBridge {
     @Override
     public void getPlace(int requestId, int placeId) {
         api.getPlace(placeId).enqueue(new MainCallback<Place>(requestId));
+    }
+
+    @Override
+    public void getEventsByPlace(int requestId, int placeId) {
+        api.getEventsByPlace(String.valueOf(placeId)).enqueue(new MainCallback<GetEvents>(requestId));
     }
 }

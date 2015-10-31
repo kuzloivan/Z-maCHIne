@@ -12,26 +12,25 @@ import z_machine.vkhackathon.com.z_machine.model.Place;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.ParallaxAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.VH;
 import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
-import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
 public final class PlaceAdapter extends ParallaxAdapter<Place, PlaceAdapter.ViewHolder> {
 
     private final ImageLoader imageLoader;
 
     public PlaceAdapter(Context context) {
-        super(context, R.layout.item_event);
+        super(context, R.layout.item_place);
         imageLoader = ImageLoader.getInstance();
 //        imageLoader.init(ImageUtils.createImageLoaderConfiguration(context));
     }
 
     @Override
     public void onUpScroll(View childView) {
-        upScroll(((ViewHolder) childView.getTag()).ivEventBackground);
+        upScroll(((ViewHolder) childView.getTag()).ivBackground);
     }
 
     @Override
     public void onDownScroll(View childView) {
-        downScroll(((ViewHolder) childView.getTag()).ivEventBackground);
+        downScroll(((ViewHolder) childView.getTag()).ivBackground);
     }
 
     @Override
@@ -41,27 +40,30 @@ public final class PlaceAdapter extends ParallaxAdapter<Place, PlaceAdapter.View
 
     protected final static class ViewHolder extends VH.AbsVH<Place> {
 
-        private final TextView tvEventCity;
-        private final TextView tvEventName;
-        private final TextView tvHashTag;
-        private final ImageView ivEventBackground;
+        private static final String ST_PETERSBURG = "Санкт-Петербург";
+
+        private final TextView tvCity;
+        private final TextView tvName;
+        private final TextView tvAddress;
+        private final ImageView ivBackground;
         private final ImageLoader imageLoader;
 
         public ViewHolder(View view, ImageLoader imageLoader) {
             super(view);
             this.imageLoader = imageLoader;
-            tvEventCity = (TextView) view.findViewById(R.id.tvEventCity);
-            tvEventName = (TextView) view.findViewById(R.id.tvEventName);
-            tvHashTag = (TextView) view.findViewById(R.id.tvEventHashTag);
-            ivEventBackground = (ImageView) view.findViewById(R.id.ivEventBackground);
+            tvCity = (TextView) view.findViewById(R.id.tvPlaceCity);
+            tvName = (TextView) view.findViewById(R.id.tvPlaceName);
+            tvAddress = (TextView) view.findViewById(R.id.tvPlaceAddress);
+            ivBackground = (ImageView) view.findViewById(R.id.ivPlaceBackground);
         }
 
         @Override
         public void fill(Place model) {
-            ivEventBackground.setImageBitmap(null);
-            imageLoader.displayImage(model.getImages().get(0).getImage(), ivEventBackground);
-            tvEventName.setText(model.getTitle());
-            tvHashTag.setText(SystemUtils.placeHashTagById(model.getId()));
+            ivBackground.setImageBitmap(null);
+            imageLoader.displayImage(model.getImages().get(0).getImage(), ivBackground);
+            tvName.setText(model.getTitle());
+            tvAddress.setText(model.getAddress());
+            tvCity.setText(ST_PETERSBURG);
         }
 
     }
