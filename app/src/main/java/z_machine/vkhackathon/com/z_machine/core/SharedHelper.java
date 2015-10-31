@@ -19,33 +19,34 @@ public class SharedHelper {
 
     public SharedHelper(Context context) {
         this.context = context;
-        sharedPreferences = context.getSharedPreferences("zmachine",Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("zmachine", Context.MODE_PRIVATE);
     }
 
     public void saveVkToken(VKAccessToken vkAccessToken) {
         vkAccessToken.saveTokenToSharedPreferences(context, VK_TOKEN);
     }
 
-    public VKAccessToken getVkAccessToken(){
-        return VKAccessToken.tokenFromSharedPreferences(context,VK_TOKEN);
+    public VKAccessToken getVkAccessToken() {
+        return VKAccessToken.tokenFromSharedPreferences(context, VK_TOKEN);
     }
 
-    public boolean isValidVkToken(){
-        return getVkAccessToken()!=null&&!getVkAccessToken().isExpired();
+    public boolean isValidVkToken() {
+        return getVkAccessToken() != null && !getVkAccessToken().isExpired();
     }
 
-    public int getUserId(){
+    public int getUserId() {
         return sharedPreferences.getInt(USER_ID, 0);
     }
 
-    public void setUserId(int Id){
+    public void setUserId(int Id) {
         sharedPreferences.edit().putInt(USER_ID, Id).apply();
     }
-    public int getAlbumId(){
+
+    public int getAlbumId() {
         return sharedPreferences.getInt(ALBUM_ID, 0);
     }
 
-    public void setAlbumId(int Id){
+    public void setAlbumId(int Id) {
         sharedPreferences.edit().putInt(ALBUM_ID, Id).apply();
     }
 
