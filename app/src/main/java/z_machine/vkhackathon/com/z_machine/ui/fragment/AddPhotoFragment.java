@@ -223,11 +223,7 @@ public final class AddPhotoFragment extends BaseFragment {
         return image;
     }
 
-    private void search() {
-        String hashtag = "&#hackathon";
-        VKRequest searchRequest = new VKRequest("photos.search", VKParameters.from("q", hashtag));
-        searchRequest.executeWithListener(searchPhotoRequestListener);
-    }
+
 
     private void sendPhoto() {
         new Thread(new Runnable() {
@@ -294,35 +290,7 @@ public final class AddPhotoFragment extends BaseFragment {
         }
     };
 
-    VKRequest.VKRequestListener searchPhotoRequestListener = new VKRequest.VKRequestListener() {
-        @Override
-        public void onComplete(VKResponse response) {
-            super.onComplete(response);
-            Log.d("search", response.responseString);
-            JSONArray jsonArray = null;
-            List<VKApiPhoto> vkApiPhotos = new ArrayList<>();
-            try {
-                jsonArray = response.json.getJSONObject("response").getJSONArray("items");
-                int length = jsonArray.length();
-                for (int i = 0; i < length; i++) {
-                    VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
-                    vkApiPhotos.add(photo);
-                }
 
-                ImageLoader imageLoader = ImageLoader.getInstance();
-//               imageLoader.init(ImageUtils.createImageLoaderConfiguration(getActivity()));
-                imageLoader.displayImage(vkApiPhotos.get(0).photo_807, imageView);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onError(VKError error) {
-            super.onError(error);
-            Log.d("upload", error.apiError.errorMessage);
-        }
-    };
 
 
     public static File getTargetFile(Uri contentUri, Context pContext) throws IOException {
