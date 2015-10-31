@@ -7,14 +7,17 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.List;
+
 import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.model.Event;
+import z_machine.vkhackathon.com.z_machine.model.Image;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.GenericAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.abs.VH;
 import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
 import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
-public class EventByPlaceAdapter extends GenericAdapter<Event, EventByPlaceAdapter.ViewHolder>{
+public class EventByPlaceAdapter extends GenericAdapter<Event, EventByPlaceAdapter.ViewHolder> {
 
     private final ImageLoader imageLoader;
 
@@ -46,9 +49,15 @@ public class EventByPlaceAdapter extends GenericAdapter<Event, EventByPlaceAdapt
 
         @Override
         public void fill(Event model) {
-            imageLoader.displayImage(model.getImages().get(0).getImage(), ivEventImage);
+            if (isImageTrue(model.getImages())) {
+                imageLoader.displayImage(model.getImages().get(0).getImage(), ivEventImage);
+            }
             tvEventHashTag.setText(SystemUtils.eventHashTagById(model.getId()));
             tvEventName.setText(model.getTitle());
+        }
+
+        private boolean isImageTrue(List<Image> images) {
+            return images.size() > 0;
         }
     }
 }
