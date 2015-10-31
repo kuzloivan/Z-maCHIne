@@ -152,16 +152,17 @@ public final class AddPhotoFragment extends BaseFragment {
                 }
                 imageView.setImageBitmap(BitmapFactory.decodeFile(targetFile.getAbsolutePath()));*/
             } else if (requestCode == REQUEST_TAKE_PHOTO) {
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), capturedImageUri);
-                    imageView.setImageBitmap(bitmap);
-
-                    addPanelView.setVisibility(View.GONE);
-                    sendBtn.setVisibility(View.VISIBLE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                galleryAddPic();
+                ImageLoader.getInstance().displayImage("file://" + targetFile.getAbsolutePath(),imageView);
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), capturedImageUri);
+//                    imageView.setImageBitmap(bitmap);
+//
+//                    addPanelView.setVisibility(View.GONE);
+//                    sendBtn.setVisibility(View.VISIBLE);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                galleryAddPic();
             }
         }
     }
@@ -179,16 +180,17 @@ public final class AddPhotoFragment extends BaseFragment {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            File photoFile = null;
             try {
-                photoFile = createImageFile();
+                if(targetFile!=null){
+                    targetFile.deleteOnExit();
+                }
+                targetFile = createImageFile();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            if (photoFile != null) {
-                capturedImageUri = Uri.fromFile(photoFile);
+            if (targetFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
+                        Uri.fromFile(targetFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
