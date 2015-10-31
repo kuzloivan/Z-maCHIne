@@ -24,13 +24,14 @@ public class SplashActivity extends BaseActivity {
     };
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         if(appBridge.getSharedHelper().isValidVkToken()){
             MainActivity.start(this);
         }else {
-            VKSdk.login(this,"photos");
+          //  VKSdk.login(this,"photos");
+            MainActivity.start(this);
         }
     }
 
