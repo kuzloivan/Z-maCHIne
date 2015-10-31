@@ -1,6 +1,8 @@
 package z_machine.vkhackathon.com.z_machine.model;
 
-public final class Image {
+import io.realm.RealmObject;
+
+public final class Image  {
 
     private String image;
 

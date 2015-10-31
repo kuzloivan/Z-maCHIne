@@ -2,7 +2,9 @@ package z_machine.vkhackathon.com.z_machine.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public final class Coords {
+import io.realm.RealmObject;
+
+public final class Coords  {
 
     private double lat;
     private double lon;

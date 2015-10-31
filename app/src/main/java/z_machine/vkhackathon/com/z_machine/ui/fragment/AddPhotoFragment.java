@@ -177,6 +177,7 @@ public final class AddPhotoFragment extends BaseFragment {
 
 
     private void sendPhoto() {
+        activityBridge.showProgressDialog();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -191,17 +192,19 @@ public final class AddPhotoFragment extends BaseFragment {
                             int length = jsonArray.length();
                             for (int i = 0; i < length; i++) {
                                 VKApiPhoto photo = new VKApiPhoto(jsonArray.getJSONObject(i));
-                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", "#kudago@99842"));
+                                VKRequest photoRequest = new VKRequest("photos.edit", VKParameters.from("photo_id", photo.getId(), "caption", "#kudago_99842"));
                                 photoRequest.executeWithListener(uploadPhotoRequestListener);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        activityBridge.closeDialog();
                     }
 
                     @Override
                     public void onError(VKError error) {
                         Log.d("upload", error.apiError.errorMessage);
+                        activityBridge.closeDialog();
                     }
                 });
             }

@@ -49,6 +49,7 @@ public final class KudaGoFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         final ParallaxListView lvEvents = (ParallaxListView) view.findViewById(R.id.lvElements);
         lvEvents.setAdapter(placeAdapter);
+        placeAdapter.add(appBridge.getRestoreManager().getPlaces());
         lvEvents.setOnItemClickListener(new PlaceItemListener());
     }
 
@@ -72,7 +73,8 @@ public final class KudaGoFragment extends BaseFragment {
         if (event.getRequestId() == GET_PLACES) {
             final GetPlaces placesResponseBody = (GetPlaces) event.getBody();
             placesResponseBody.getPlaces().add(0,Place.facePlace());
-            placeAdapter.add(placesResponseBody.getPlaces());
+            appBridge.getRestoreManager().addPlaces(placesResponseBody.getPlaces());
+            placeAdapter.add(appBridge.getRestoreManager().getPlaces());
         }
     }
 

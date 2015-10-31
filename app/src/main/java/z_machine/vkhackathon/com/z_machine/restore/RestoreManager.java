@@ -2,11 +2,15 @@ package z_machine.vkhackathon.com.z_machine.restore;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.realm.Realm;
 import z_machine.vkhackathon.com.z_machine.model.Event;
 import z_machine.vkhackathon.com.z_machine.model.MyEventRealmObject;
+import z_machine.vkhackathon.com.z_machine.model.Place;
 import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 
 /**
@@ -15,6 +19,19 @@ import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 public class RestoreManager {
 
     private Context context;
+
+    private Map<Integer,Place> placeMap = new HashMap<>();
+
+
+    public void addPlaces(List<Place> places){
+        for(Place place: places){
+            placeMap.put(place.getId(),place);
+        }
+    }
+
+    public List<Place> getPlaces(){
+        return new ArrayList<>(placeMap.values());
+    }
 
 
     public RestoreManager(Context context) {

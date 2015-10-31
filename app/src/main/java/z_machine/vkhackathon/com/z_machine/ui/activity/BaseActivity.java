@@ -17,14 +17,17 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import z_machine.vkhackathon.com.z_machine.R;
+import z_machine.vkhackathon.com.z_machine.core.appinterface.ActivityBridge;
 import z_machine.vkhackathon.com.z_machine.core.appinterface.AppBridge;
+import z_machine.vkhackathon.com.z_machine.ui.MyWaitDialog;
 import z_machine.vkhackathon.com.z_machine.utils.ImageUtils;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements ActivityBridge {
 
     protected AppBridge appBridge;
     protected Toolbar toolbar;
     private DrawerLayout drawerLayout;
+    private MyWaitDialog myWaitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,5 +83,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
 
+    }
+
+    @Override
+    public void showProgressDialog() {
+        myWaitDialog = MyWaitDialog.initAndShow(this);
+    }
+
+    @Override
+    public void closeDialog() {
+        myWaitDialog.dismiss();
+    }
+    @Override
+    public AppBridge getAppBridge() {
+        return appBridge;
     }
 }
