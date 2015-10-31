@@ -1,6 +1,7 @@
 package z_machine.vkhackathon.com.z_machine.network.rest.response;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import z_machine.vkhackathon.com.z_machine.model.Place;

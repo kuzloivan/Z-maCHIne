@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GenericAdapter<T, VHType extends ViewHolder.VH<T>> extends BaseAdapter {
+public abstract class GenericAdapter<T, VHType extends VH.AbsVH<T>> extends BaseAdapter {
 
     private final LayoutInflater layoutInflater;
     private final List<T> items;
@@ -41,6 +41,16 @@ public abstract class GenericAdapter<T, VHType extends ViewHolder.VH<T>> extends
     @Override
     public final T getItem(int position) {
         return items.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return items.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override

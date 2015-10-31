@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import z_machine.vkhackathon.com.z_machine.R;
 
 
-public class FragmentLauncher {
+public final class FragmentLauncher {
 
     public static void replaceMainContainer(FragmentManager fragmentManager,
                                             @NonNull Fragment fragment) {
