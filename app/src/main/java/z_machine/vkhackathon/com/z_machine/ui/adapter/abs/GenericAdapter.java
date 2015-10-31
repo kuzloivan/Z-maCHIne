@@ -1,4 +1,4 @@
-package z_machine.vkhackathon.com.z_machine.ui.adapter;
+package z_machine.vkhackathon.com.z_machine.ui.adapter.abs;
 
 import android.content.Context;
 import android.view.LayoutInflater;
