@@ -7,4 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="map_api_key">AIzaSyCgutkvbTSfO3Q0AGgV7w6nAqTZxzvxr2M</string>
 
+    <string name="add_photo">Add photo</string>
+    <string name="KudaGo">KudaGo</string>
+    <string name="Geolocation">Geolocation</string>
 </resources>

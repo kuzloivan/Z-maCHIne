@@ -10,24 +10,45 @@ import com.vk.sdk.VKAccessToken;
  */
 public class SharedHelper {
 
-    private static final String VK_TOKEN = "vk_token";
-    private SharedPreferences preferences;
+    private static final String VK_ACCESS_TOKEN = "vk_access_token";
+    private static final String USER_ID = "user_id";
+    private static final String ALBUM_ID = "album_id";
+    private SharedPreferences sharedPreferences;
+
     private Context context;
 
-    public SharedHelper(Context context){
-        preferences = context.getSharedPreferences("zmachine",Context.MODE_PRIVATE);
+    public SharedHelper(Context context) {
         this.context = context;
+        sharedPreferences = context.getSharedPreferences("zmachine",Context.MODE_PRIVATE);
     }
 
-    public void saveVkToken(VKAccessToken token){
-        token.saveTokenToSharedPreferences(context,VK_TOKEN);
+    public void saveVkToken(VKAccessToken vkAccessToken) {
+        vkAccessToken.saveTokenToSharedPreferences(context, VK_ACCESS_TOKEN);
     }
 
-    public VKAccessToken getVkAccessToken(){
-        return VKAccessToken.tokenFromSharedPreferences(context,VK_TOKEN);
+    public VKAccessToken getVkAToken() {
+        return VKAccessToken.tokenFromSharedPreferences(context, VK_ACCESS_TOKEN);
     }
 
-    public boolean isValidVkToken(){
-        return getVkAccessToken()!=null&&!getVkAccessToken().isExpired();
+    public boolean isVkTokenExpired() {
+        VKAccessToken token = getVkAToken();
+
+        return (token==null||token.isExpired())?true:false;
     }
+
+    public int getUserId(){
+        return sharedPreferences.getInt(USER_ID, 0);
+    }
+
+    public void setUserId(int Id){
+        sharedPreferences.edit().putInt(USER_ID, Id).apply();
+    }
+    public int getAlbumId(){
+        return sharedPreferences.getInt(ALBUM_ID, 0);
+    }
+
+    public void setAlbumId(int Id){
+        sharedPreferences.edit().putInt(ALBUM_ID, Id).apply();
+    }
+
 }
