@@ -129,5 +129,4 @@ public final class DetailPlaceActivity extends BaseActivity {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
-
 }
