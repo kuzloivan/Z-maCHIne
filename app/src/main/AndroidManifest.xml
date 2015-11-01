@@ -52,7 +52,8 @@
             android:label="ServiceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/VK.Transparent" />
-
+<activity android:name=".ui.activity.FullScreenActivity"
+    android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
