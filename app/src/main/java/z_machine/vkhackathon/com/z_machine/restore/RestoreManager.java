@@ -21,7 +21,7 @@ public final class RestoreManager {
     private final Context context;
 
     private Map<Integer, Place> placeMap = new HashMap<>();
-    private final int fakeId;
+
 
     public void addPlaces(List<Place> places) {
         for (Place place : places) {
@@ -36,11 +36,7 @@ public final class RestoreManager {
     public List<Place> getPlaces() {
         final List<Place> places = new ArrayList<>();
         places.addAll(placeMap.values());
-        final Place fakePlace = placeMap.get(fakeId);
-        final int index = places.indexOf(fakePlace);
-        final Place place = places.get(0);
-        places.add(0, fakePlace);
-        places.add(index, place);
+        places.set(0, placeMap.get(24109));
         return places;
     }
 
@@ -48,8 +44,7 @@ public final class RestoreManager {
     public RestoreManager(Context context) {
         this.context = context;
         final Place fakePlace = Place.facePlace();
-        fakeId = fakePlace.getId();
-        placeMap.put(fakeId, fakePlace);
+        placeMap.put(fakePlace.getId(), fakePlace);
     }
 
     public void saveEvent(Event event) {

@@ -18,15 +18,14 @@
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup"
-        android:screenOrientation="portrait">
+        tools:ignore="AllowBackup">
 
         <activity
             android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,24 +35,22 @@
 
         <activity
             android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.activity.AddPhotoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.place.DetailPlaceActivity"
-            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.DetailEventActivity"/>
+        <activity android:name=".ui.activity.AddPhotoActivity" />
+
+        <activity android:name=".ui.activity.place.DetailPlaceActivity" />
+
+        <activity android:name=".ui.activity.DetailEventActivity" />
 
         <activity
             android:name="com.vk.sdk.VKServiceActivity"
             android:label="ServiceActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/VK.Transparent" />
-<activity android:name=".ui.activity.FullScreenActivity"
-    android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.activity.FullScreenActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

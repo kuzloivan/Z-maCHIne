@@ -2,19 +2,21 @@ package z_machine.vkhackathon.com.z_machine.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.vk.sdk.api.model.VKApiPhoto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
+import z_machine.vkhackathon.com.z_machine.R;
 import z_machine.vkhackathon.com.z_machine.ui.activity.FullScreenActivity;
 
 /**
@@ -23,18 +25,27 @@ import z_machine.vkhackathon.com.z_machine.ui.activity.FullScreenActivity;
 public class ImageGridAdapter extends BaseAdapter {
 
     List<VKApiPhoto> mThumbIds;
-    private Activity context;
     private ImageLoader imageLoader;
-    private ClickListener clickListener;
+    private final LayoutInflater layoutInflater;
 
-    public ImageGridAdapter(Activity context) {
-        this.context = context;
+    public ImageGridAdapter(Context context) {
+        layoutInflater = LayoutInflater.from(context);
         imageLoader = ImageLoader.getInstance();
     }
 
     public void setmThumbIds(List<VKApiPhoto> mThumbIds) {
         this.mThumbIds = mThumbIds;
         notifyDataSetChanged();
+    }
+
+    public String[] getUrls() {
+        ArrayList<String> urls = new ArrayList<>();
+        for (VKApiPhoto vkApiPhoto : mThumbIds) {
+            urls.add(vkApiPhoto.photo_1280);
+        }
+        String[] results = new String[urls.size()];
+        urls.toArray(results);
+        return results;
     }
 
     @Override
@@ -46,7 +57,7 @@ public class ImageGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public VKApiPhoto getItem(int position) {
         return mThumbIds.get(position);
     }
 
@@ -57,28 +68,20 @@ public class ImageGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int columnWidth = ((GridView) parent).getColumnWidth();
-        ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        AbsListView.LayoutParams layoutParams = new GridView.LayoutParams(columnWidth - 16, columnWidth - 16);
-        imageView.setLayoutParams(layoutParams);
-        imageView.setPadding(8, 8, 8, 8);
-        imageView.setOnClickListener(new ClickListener(mThumbIds.get(position).photo_807));
-        imageLoader.displayImage(mThumbIds.get(position).photo_604, imageView);
-        return imageView;
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.item_grid, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.ivPage = (ImageView) convertView.findViewById(R.id.ivEventGrid);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        imageLoader.displayImage(mThumbIds.get(position).photo_604, viewHolder.ivPage);
+        return convertView;
     }
 
-    private class ClickListener implements View.OnClickListener{
-
-        private String url;
-
-        public ClickListener(String url){
-            this.url = url;
-        }
-
-        @Override
-        public void onClick(View v) {
-            FullScreenActivity.start(context,url);
-        }
+    private static final class ViewHolder {
+        private ImageView ivPage;
     }
 }

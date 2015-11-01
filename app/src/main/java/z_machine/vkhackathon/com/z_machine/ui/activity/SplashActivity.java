@@ -2,6 +2,7 @@ package z_machine.vkhackathon.com.z_machine.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.vk.sdk.VKAccessToken;
@@ -36,11 +37,17 @@ public class SplashActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        if(appBridge.getSharedHelper().isValidVkToken()){
-            MainActivity.start(this);
-        }else {
-            VKSdk.login(this, VKScope.PHOTOS);
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (appBridge.getSharedHelper().isValidVkToken()) {
+                    MainActivity.start(SplashActivity.this);
+                } else {
+                    VKSdk.login(SplashActivity.this, VKScope.PHOTOS);
+                }
+            }
+        }, 5_000);
+
     }
 
     @Override
@@ -56,7 +63,7 @@ public class SplashActivity extends BaseActivity {
             appBridge.getSharedHelper().saveVkToken(res);
             VKRequest vkGetAlbumsRequest = new VKRequest("photos.getAlbums");
             vkGetAlbumsRequest.executeWithListener(albumRequestListener);
-            VKRequest request = VKApi.users().get(VKParameters.from("fields","photo_big"));
+            VKRequest request = VKApi.users().get(VKParameters.from("fields", "photo_big"));
             request.executeAfterRequest(vkGetAlbumsRequest, userRequestListener);
         }
 
@@ -69,10 +76,10 @@ public class SplashActivity extends BaseActivity {
     VKRequest.VKRequestListener albumCreateListener = new VKRequest.VKRequestListener() {
         @Override
         public void onComplete(VKResponse response) {
-            Log.d("album",response.responseString);
+            Log.d("album", response.responseString);
             VKApiPhotoAlbum photoAlbum = null;
             try {
-                photoAlbum=  new VKApiPhotoAlbum(response.json.getJSONObject("response"));
+                photoAlbum = new VKApiPhotoAlbum(response.json.getJSONObject("response"));
                 appBridge.getSharedHelper().setAlbumId(photoAlbum.id);
             } catch (JSONException e1) {
                 e1.printStackTrace();
@@ -81,32 +88,31 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public void onError(VKError error) {
-            Log.d("album",error.apiError.errorMessage);
+            Log.d("album", error.apiError.errorMessage);
         }
     };
 
     VKRequest.VKRequestListener albumRequestListener = new VKRequest.VKRequestListener() {
         @Override
         public void onComplete(VKResponse response) {
-            Log.d("album",response.responseString);
-            boolean hasAlbum=false;
+            Log.d("album", response.responseString);
+            boolean hasAlbum = false;
             JSONArray jsonArray = null;
             try {
                 jsonArray = response.json.getJSONObject("response").getJSONArray("items");
                 int length = jsonArray.length();
                 for (int i = 0; i < length; i++) {
                     VKApiPhotoAlbum photoAlbum = new VKApiPhotoAlbum(jsonArray.getJSONObject(i));
-                    if(photoAlbum.title.equals(getString(R.string.app_name))){
+                    if (photoAlbum.title.equals(getString(R.string.app_name))) {
                         appBridge.getSharedHelper().setAlbumId(photoAlbum.id);
-                        hasAlbum=true;
+                        hasAlbum = true;
                         break;
                     }
                 }
-                if (!hasAlbum){
-                    VKRequest vkRequest = new VKRequest("photos.createAlbum", VKParameters.from("title",getString(R.string.app_name),"description","Test"));
+                if (!hasAlbum) {
+                    VKRequest vkRequest = new VKRequest("photos.createAlbum", VKParameters.from("title", getString(R.string.app_name), "description", "Test"));
                     vkRequest.executeWithListener(albumCreateListener);
-                }
-                else {
+                } else {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -115,7 +121,7 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public void onError(VKError error) {
-            Log.d("album",error.apiError.errorMessage);
+            Log.d("album", error.apiError.errorMessage);
         }
     };
 
@@ -143,7 +149,7 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public void onError(VKError error) {
-            Log.d("user",error.apiError.errorMessage);
+            Log.d("user", error.apiError.errorMessage);
         }
     };
 }

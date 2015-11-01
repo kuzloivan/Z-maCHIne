@@ -5,15 +5,15 @@
         <item
             android:id="@+id/nav_kudago"
             android:icon="@android:drawable/ic_menu_gallery"
-            android:title="KudaGo" />
+            android:title="Места" />
         <item
             android:id="@+id/nav_my_events"
             android:icon="@android:drawable/ic_menu_camera"
-            android:title="My events" />
+            android:title="Моя коллекция" />
         <item
             android:id="@+id/nav_geolocation"
             android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Geolocation" />
+            android:title="Карта" />
     </group>
 
 

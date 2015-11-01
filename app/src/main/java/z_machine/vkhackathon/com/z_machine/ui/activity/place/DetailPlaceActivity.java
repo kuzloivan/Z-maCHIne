@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -44,6 +45,8 @@ public final class DetailPlaceActivity extends BaseActivity {
 
     private int placeId;
     private EventByPlaceAdapter eventByPlaceAdapter;
+    private ScrollView scrollView;
+    private ListView lvEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public final class DetailPlaceActivity extends BaseActivity {
         viewPager.setAdapter(new PlacePagerAdapter(place.getImages(),
                 getApplicationContext()));
         circleIndicator.setViewPager(viewPager);
-        final ListView lvEvents = (ListView) findViewById(R.id.lvEvents);
+        lvEvents = (ListView) findViewById(R.id.lvEvents);
         lvEvents.setAdapter(eventByPlaceAdapter);
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,7 +76,7 @@ public final class DetailPlaceActivity extends BaseActivity {
                 DetailEventActivity.start(DetailPlaceActivity.this, item.getId(), item.getTitle());
             }
         });
-        setListViewHeightBasedOnChildren(lvEvents);
+        scrollView = (ScrollView)findViewById(R.id.scrollView);
     }
 
     @Override
@@ -97,7 +100,11 @@ public final class DetailPlaceActivity extends BaseActivity {
                 findViewById(R.id.tvEventText).setVisibility(View.VISIBLE);
                 findViewById(R.id.viewBelowLine).setVisibility(View.VISIBLE);
             }
+
+            int verticalScrollbarPosition = (int) scrollView.getX();
             eventByPlaceAdapter.add(eventsBodyResponse.getEvents());
+            setListViewHeightBasedOnChildren(lvEvents);
+            scrollView.scrollTo(verticalScrollbarPosition, 0);
         }
     }
 

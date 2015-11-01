@@ -73,6 +73,15 @@ public final class DetailEventActivity extends BaseActivity implements View.OnCl
         tvBody = (TextView) findViewById(R.id.tvEventsBody);
         gridView = (GridView) findViewById(R.id.photoEventGrid);
         gridView.setAdapter(new ImageGridAdapter(this));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImageGridAdapter gridAdapter = (ImageGridAdapter) parent.getAdapter();
+                VKApiPhoto photo = gridAdapter.getItem(position);
+                FullScreenActivity.start(DetailEventActivity.this, position, gridAdapter.getUrls());
+            }
+        });
         findViewById(R.id.activity_detail_photo_btn).setOnClickListener(this);
     }
 
