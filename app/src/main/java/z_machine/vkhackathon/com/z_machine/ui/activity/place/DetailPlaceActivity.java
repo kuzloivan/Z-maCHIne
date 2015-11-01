@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -29,7 +28,6 @@ import z_machine.vkhackathon.com.z_machine.ui.activity.BaseActivity;
 import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.event.EventByPlaceAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
-import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 
 public final class DetailPlaceActivity extends BaseActivity{
 
@@ -150,5 +148,4 @@ public final class DetailPlaceActivity extends BaseActivity{
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
-
 }

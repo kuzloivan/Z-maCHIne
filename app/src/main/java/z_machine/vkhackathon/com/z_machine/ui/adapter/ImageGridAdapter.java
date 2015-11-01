@@ -1,5 +1,6 @@
 package z_machine.vkhackathon.com.z_machine.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,20 @@ import com.vk.sdk.api.model.VKApiPhoto;
 
 import java.util.List;
 
+import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
+import z_machine.vkhackathon.com.z_machine.ui.activity.FullScreenActivity;
+
 /**
  * Created by Kuzlo on 31.10.2015.
  */
 public class ImageGridAdapter extends BaseAdapter {
 
     List<VKApiPhoto> mThumbIds;
-    private Context context;
+    private Activity context;
     private ImageLoader imageLoader;
+    private ClickListener clickListener;
 
-    public ImageGridAdapter(Context context) {
+    public ImageGridAdapter(Activity context) {
         this.context = context;
         imageLoader = ImageLoader.getInstance();
     }
@@ -58,7 +63,22 @@ public class ImageGridAdapter extends BaseAdapter {
         AbsListView.LayoutParams layoutParams = new GridView.LayoutParams(columnWidth - 16, columnWidth - 16);
         imageView.setLayoutParams(layoutParams);
         imageView.setPadding(8, 8, 8, 8);
+        imageView.setOnClickListener(new ClickListener(mThumbIds.get(position).photo_807));
         imageLoader.displayImage(mThumbIds.get(position).photo_604, imageView);
         return imageView;
+    }
+
+    private class ClickListener implements View.OnClickListener{
+
+        private String url;
+
+        public ClickListener(String url){
+            this.url = url;
+        }
+
+        @Override
+        public void onClick(View v) {
+            FullScreenActivity.start(context,url);
+        }
     }
 }

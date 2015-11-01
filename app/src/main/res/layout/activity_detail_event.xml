@@ -47,7 +47,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/viewLine"
-                android:layout_margin="@dimen/basePadding"
+                android:layout_marginLeft="@dimen/basePadding"
+                android:layout_marginRight="@dimen/basePadding"
+                android:layout_marginTop="@dimen/basePadding"
                 tools:text="Body" />
 
             <TextView
