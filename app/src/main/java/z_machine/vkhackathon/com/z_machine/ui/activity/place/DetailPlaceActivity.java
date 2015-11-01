@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,30 +27,22 @@ import z_machine.vkhackathon.com.z_machine.ui.activity.BaseActivity;
 import z_machine.vkhackathon.com.z_machine.ui.activity.DetailEventActivity;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.event.EventByPlaceAdapter;
 import z_machine.vkhackathon.com.z_machine.ui.adapter.place.PlacePagerAdapter;
-import z_machine.vkhackathon.com.z_machine.ui.fragment.AddPhotoActivity;
 
-public final class DetailPlaceActivity extends BaseActivity{
+public final class DetailPlaceActivity extends BaseActivity {
 
-    private static final int GET_PLACE = 2;
     private static final int GET_EVENTS = 3;
 
     private static final String ID_KEY = DetailPlaceActivity.class.getSimpleName() + "id";
-    private static final String TITLE_KEY = DetailPlaceActivity.class.getSimpleName() + "title";
 
-    public static void start(Activity activity, int placeId, String title) {
+    public static void start(Activity activity, int placeId) {
         final Bundle bundle = new Bundle();
         final Intent intent = new Intent(activity, DetailPlaceActivity.class);
         bundle.putInt(ID_KEY, placeId);
-        bundle.putString(TITLE_KEY, title);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }
 
-    private int eventId;
-    private CircleIndicator circleIndicator;
-    private ViewPager viewPager;
-    private TextView tvDescription;
-    private TextView tvBody;
+    private int placeId;
     private EventByPlaceAdapter eventByPlaceAdapter;
 
     @Override
@@ -60,14 +51,19 @@ public final class DetailPlaceActivity extends BaseActivity{
         setContentView(R.layout.activity_detail_place);
         eventByPlaceAdapter = new EventByPlaceAdapter(getApplicationContext());
         final Bundle bundle = getIntent().getExtras();
-        eventId = bundle.getInt(ID_KEY);
-        String title = bundle.getString(TITLE_KEY);
+        placeId = bundle.getInt(ID_KEY);
+        Place place = appBridge.getRestoreManager().getPlace(placeId);
         homeAsUp();
-        setTitle(title);
-        viewPager = (ViewPager) findViewById(R.id.pagerPlaces);
-        circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
-        tvDescription = (TextView) findViewById(R.id.tvPlaceDescription);
-        tvBody = (TextView) findViewById(R.id.tvPlaceBody);
+        setTitle(place.getTitle());
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pagerPlaces);
+        final CircleIndicator circleIndicator = (CircleIndicator) findViewById(R.id.circleIndicator);
+        final TextView tvDescription = (TextView) findViewById(R.id.tvPlaceDescription);
+        final TextView tvBody = (TextView) findViewById(R.id.tvPlaceBody);
+        tvBody.setText(Html.fromHtml(place.getBodyText()));
+        tvDescription.setText(place.getAddress());
+        viewPager.setAdapter(new PlacePagerAdapter(place.getImages(),
+                getApplicationContext()));
+        circleIndicator.setViewPager(viewPager);
         final ListView lvEvents = (ListView) findViewById(R.id.lvEvents);
         lvEvents.setAdapter(eventByPlaceAdapter);
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,7 +80,7 @@ public final class DetailPlaceActivity extends BaseActivity{
     public void onStart() {
         super.onStart();
         BusProvider.getInstance().register(this);
-        appBridge.getNetBridge().getPlace(GET_PLACE, eventId);
+        appBridge.getNetBridge().getEventsByPlace(GET_EVENTS, placeId);
     }
 
     @Override
@@ -95,19 +91,9 @@ public final class DetailPlaceActivity extends BaseActivity{
 
     @Subscribe
     public void networkEventListener(BaseEvent event) {
-        if (event.getRequestId() == GET_PLACE) {
-            final Place placeBodyResponse = (Place) event.getBody();
-            tvBody.setText(Html.fromHtml(placeBodyResponse.getBodyText()));
-
-            tvDescription.setText(placeBodyResponse.getAddress());
-            viewPager.setAdapter(new PlacePagerAdapter(placeBodyResponse.getImages(),
-                    getApplicationContext()));
-            circleIndicator.setViewPager(viewPager);
-            appBridge.getNetBridge().getEventsByPlace(GET_EVENTS, placeBodyResponse.getId());
-        }
         if (event.getRequestId() == GET_EVENTS) {
             final GetEvents eventsBodyResponse = (GetEvents) event.getBody();
-            if(eventsBodyResponse.getCount() != 0) {
+            if (eventsBodyResponse.getCount() != 0) {
                 findViewById(R.id.tvEventText).setVisibility(View.VISIBLE);
                 findViewById(R.id.viewBelowLine).setVisibility(View.VISIBLE);
             }

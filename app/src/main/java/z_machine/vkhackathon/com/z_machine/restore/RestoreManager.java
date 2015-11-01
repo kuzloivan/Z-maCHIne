@@ -16,12 +16,12 @@ import z_machine.vkhackathon.com.z_machine.utils.SystemUtils;
 /**
  * Created by Kuzlo on 31.10.2015.
  */
-public class RestoreManager {
+public final class RestoreManager {
 
-    private Context context;
+    private final Context context;
 
     private Map<Integer, Place> placeMap = new HashMap<>();
-
+    private final int fakeId;
 
     public void addPlaces(List<Place> places) {
         for (Place place : places) {
@@ -29,17 +29,27 @@ public class RestoreManager {
         }
     }
 
+    public Place getPlace(int placeId) {
+        return placeMap.get(placeId);
+    }
+
     public List<Place> getPlaces() {
-        placeMap.remove(Place.facePlace().getId());
-        List<Place> places = new ArrayList<>();
+        final List<Place> places = new ArrayList<>();
         places.addAll(placeMap.values());
-        places.add(0, Place.facePlace());
+        final Place fakePlace = placeMap.get(fakeId);
+        final int index = places.indexOf(fakePlace);
+        final Place place = places.get(0);
+        places.add(0, fakePlace);
+        places.add(index, place);
         return places;
     }
 
 
     public RestoreManager(Context context) {
         this.context = context;
+        final Place fakePlace = Place.facePlace();
+        fakeId = fakePlace.getId();
+        placeMap.put(fakeId, fakePlace);
     }
 
     public void saveEvent(Event event) {

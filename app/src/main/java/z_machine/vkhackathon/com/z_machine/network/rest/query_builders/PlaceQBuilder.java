@@ -67,7 +67,8 @@ public class PlaceQBuilder {
         TITLE("title"),
         SHORT_TITLE("short_title"),
         COORDS("coords"),
-        ADDRESS("address");
+        ADDRESS("address"),
+        BODY_TEXT("body_text");
 
         private String param;
 

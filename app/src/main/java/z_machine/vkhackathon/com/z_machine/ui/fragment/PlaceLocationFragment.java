@@ -157,7 +157,7 @@ public final class PlaceLocationFragment extends SupportMapFragment implements O
 
         @Override
         public void onClusterItemInfoWindowClick(Place place) {
-            DetailPlaceActivity.start(getActivity(),place.getId(),place.getTitle());
+            DetailPlaceActivity.start(getActivity(),place.getId());
         }
     }
 

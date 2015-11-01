@@ -10,7 +10,7 @@ import z_machine.vkhackathon.com.z_machine.network.rest.query_builders.PlaceQBui
 import z_machine.vkhackathon.com.z_machine.network.rest.response.GetEvents;
 import z_machine.vkhackathon.com.z_machine.network.rest.response.GetPlaces;
 
-public class NetManager implements NetBridge {
+public final class NetManager implements NetBridge {
 
     private final Api api;
 
@@ -45,7 +45,8 @@ public class NetManager implements NetBridge {
                         PlaceQBuilder.OPTIONS.TITLE,
                         PlaceQBuilder.OPTIONS.SHORT_TITLE,
                         PlaceQBuilder.OPTIONS.FAVORITES_COUNT,
-                        PlaceQBuilder.OPTIONS.ADDRESS);
+                        PlaceQBuilder.OPTIONS.ADDRESS,
+                        PlaceQBuilder.OPTIONS.BODY_TEXT);
         api.getPaces(builder.build()).enqueue(new MainCallback<GetPlaces>(requestId));
     }
 

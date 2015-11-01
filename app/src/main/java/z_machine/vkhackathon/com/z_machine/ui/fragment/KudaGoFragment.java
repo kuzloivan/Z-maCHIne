@@ -101,7 +101,6 @@ public final class KudaGoFragment extends BaseFragment {
     public void networkEventListener(BaseEvent event) {
         if (event.getRequestId() == GET_PLACES) {
             final GetPlaces placesResponseBody = (GetPlaces) event.getBody();
-//            placesResponseBody.getPlaces().add(0,Place.facePlace());
             appBridge.getRestoreManager().addPlaces(placesResponseBody.getPlaces());
             placeAdapter.add(appBridge.getRestoreManager().getPlaces());
         }
@@ -118,7 +117,7 @@ public final class KudaGoFragment extends BaseFragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final Place event = placeAdapter.getItem(position);
-            DetailPlaceActivity.start(getActivity(), event.getId(), event.getTitle());
+            DetailPlaceActivity.start(getActivity(), event.getId());
         }
     }
 }

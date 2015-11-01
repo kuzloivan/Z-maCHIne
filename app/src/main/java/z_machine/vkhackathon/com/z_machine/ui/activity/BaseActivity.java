@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -59,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         final NavigationItem navigationItem = new NavigationItem(listener);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        ((TextView)headerView.findViewById(R.id.nav_header_user_name_tv)).setText(appBridge.getSharedHelper().getUserName());
+        ((TextView) headerView.findViewById(R.id.nav_header_user_name_tv)).setText(appBridge.getSharedHelper().getUserName());
         ImageLoader.getInstance().displayImage(appBridge.getSharedHelper().getUserPhoto(), (ImageView) headerView.findViewById(R.id.nav_header_user_photo_iv), ImageUtils.getCircleOptions());
         navigationView.setNavigationItemSelectedListener(navigationItem);
         navigationItem.onNavigationItemSelected(navigationView.getMenu().getItem(0)); //Todo: выпилить костылину !!!!
@@ -94,6 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
     public void closeDialog() {
         myWaitDialog.dismiss();
     }
+
     @Override
     public AppBridge getAppBridge() {
         return appBridge;
